@@ -617,8 +617,7 @@ const teacherArchitectures = [
   .hero-split-grid {
     display: grid;
     grid-template-columns: 1.25fr 0.95fr;
-    border-left: var(--border);
-    border-right: var(--border);
+    border: var(--border);
   }
 
   .hero-left-col {
@@ -834,9 +833,7 @@ const teacherArchitectures = [
   .hero-pillars-3col {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    border-top: var(--border);
-    border-left: var(--border);
-    border-right: var(--border);
+    border: var(--border);
     background: var(--negative);
   }
 
@@ -933,9 +930,7 @@ const teacherArchitectures = [
   .solutions-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    border-left: var(--border);
-    border-right: var(--border);
-    border-bottom: var(--border);
+    border: var(--border);
   }
 
   .sol-card {
@@ -1022,9 +1017,7 @@ const teacherArchitectures = [
 
   /* ═══ Visualizer / Benchmark Styles (PrismML Spec) ═══ */
   .prism-viz-wrapper {
-    border-left: var(--border);
-    border-right: var(--border);
-    border-bottom: var(--border);
+    border: var(--border);
     background: var(--negative);
   }
 
@@ -1157,9 +1150,7 @@ const teacherArchitectures = [
   .arch-rows-list {
     display: flex;
     flex-direction: column;
-    border-top: var(--border);
-    border-left: var(--border);
-    border-right: var(--border);
+    border: var(--border);
   }
 
   .arch-row {
@@ -1171,6 +1162,10 @@ const teacherArchitectures = [
     border-bottom: var(--border);
     background: var(--negative);
     transition: background 0.15s ease;
+  }
+
+  .arch-row:last-child {
+    border-bottom: none;
   }
 
   .arch-row:hover {
@@ -1200,9 +1195,7 @@ const teacherArchitectures = [
   .news-posts-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    border-left: var(--border);
-    border-right: var(--border);
-    border-bottom: var(--border);
+    border: var(--border);
   }
 
   .news-card {
