@@ -196,12 +196,42 @@ p {
   width: 100%;
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 40px;
 }
 
 .section {
   position: relative;
+  padding: 72px 0;
   border-bottom: var(--border);
+}
+
+.section.hero-section {
+  padding: 0;
+}
+
+.section-head-split {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 36px;
+}
+
+.section-head-split p {
+  max-width: 520px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--rose);
+  text-transform: uppercase;
+  margin-bottom: 8px;
 }
 
 /* Focus Visibility */
