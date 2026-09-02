@@ -1,0 +1,320 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs');
+  return docs.map((doc) => ({
+    params: { slug: doc.id },
+    props: { doc },
+  }));
+}
+
+const { doc } = Astro.props;
+const { Content } = await render(doc);
+---
+
+<Layout
+  title={`${doc.data.title} — Solstice-AI Documentation`}
+  description={doc.data.description}
+>
+  <div class="container doc-page-wrapper">
+    <div class="doc-reader-header">
+      <nav class="back-nav mono">
+        <a href="/docs">← All Documentation</a>
+      </nav>
+
+      <div class="doc-meta-strip mono">
+        <span class="badge amber">{doc.data.category.toUpperCase()}</span>
+        {doc.data.lastUpdated && (
+          <span>Updated {new Date(doc.data.lastUpdated).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+        )}
+      </div>
+
+      <h1>{doc.data.title}</h1>
+      <p class="doc-lead-desc">{doc.data.description}</p>
+
+      <div class="doc-action-bar">
+        {doc.data.githubUrl && (
+          <a href={doc.data.githubUrl} target="_blank" rel="noopener noreferrer" class="btn solid btn-sm">
+            <div class="btn-inner">
+              <span class="btn-text">GitHub Repository</span>
+              <span class="btn-arrow">↗</span>
+            </div>
+          </a>
+        )}
+        {doc.data.hfRepoId && (
+          <a
+            href={doc.data.hfRepoId.startsWith('http') ? doc.data.hfRepoId : `https://huggingface.co/${doc.data.hfRepoId.startsWith('datasets/') ? '' : 'datasets/'}${doc.data.hfRepoId}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-sm"
+          >
+            <div class="btn-inner">
+              <span class="btn-text">Hugging Face Hub</span>
+              <span class="btn-arrow">↗</span>
+            </div>
+          </a>
+        )}
+      </div>
+
+      {doc.data.specs && (
+        <div class="specs-grid mono">
+          {Object.entries(doc.data.specs).map(([key, val]) => (
+            <div class="spec-cell">
+              <span class="spec-label">{key}</span>
+              <span class="spec-value">{val}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <div class="doc-reader-layout">
+      <div class="doc-markdown-body">
+        <Content />
+      </div>
+
+      <footer class="doc-reader-footer mono">
+        <a href="/docs" class="btn btn-sm">
+          <div class="btn-inner">
+            <span class="btn-text">← Back to Documentation</span>
+          </div>
+        </a>
+        <a
+          href={`https://github.com/Solstice-Labs/solstice-ai-site/blob/main/src/content/docs/${doc.id}.md`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-sm"
+        >
+          <div class="btn-inner">
+            <span class="btn-text">Edit on GitHub</span>
+            <span class="btn-arrow">↗</span>
+          </div>
+        </a>
+      </footer>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .doc-page-wrapper {
+    padding-top: 48px;
+    padding-bottom: 96px;
+  }
+
+  .doc-reader-header {
+    padding: 48px 40px;
+    width: 100%;
+    border: var(--border);
+    background: var(--negative);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .back-nav a {
+    font-size: 0.8125rem;
+    color: var(--positive-dim);
+    transition: color 0.15s ease;
+  }
+
+  .back-nav a:hover {
+    color: var(--positive);
+  }
+
+  .doc-meta-strip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.75rem;
+    color: var(--positive-dim);
+  }
+
+  .badge.amber {
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid var(--amber);
+    color: var(--amber);
+    padding: 2px 8px;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    border-radius: 2px;
+  }
+
+  .doc-reader-header h1 {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    line-height: 1.2;
+    margin: 4px 0;
+  }
+
+  .doc-lead-desc {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--positive-muted);
+  }
+
+  .doc-action-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+
+  .hf-tag {
+    color: var(--positive-dim);
+  }
+
+  .hf-link {
+    color: var(--rose);
+    font-weight: 600;
+    word-break: break-all;
+  }
+
+  .hf-link:hover {
+    text-decoration: underline;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    padding: 18px 20px;
+    background: var(--negative-dark);
+    border: var(--border);
+    border-radius: 2px;
+    margin-top: 6px;
+  }
+
+  .spec-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .spec-label {
+    font-size: 0.6875rem;
+    color: var(--positive-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .spec-value {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--positive);
+  }
+
+  .doc-reader-container {
+    padding: 0 0 96px;
+  }
+
+  .doc-reader-layout {
+    border-left: var(--border);
+    border-right: var(--border);
+    border-bottom: var(--border);
+    padding: 56px 48px;
+    background: var(--negative);
+  }
+
+  .doc-markdown-body {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--positive);
+    max-width: 860px;
+  }
+
+  .doc-markdown-body :global(h2) {
+    font-size: 1.55rem;
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-muted);
+  }
+
+  .doc-markdown-body :global(h3) {
+    font-size: 1.25rem;
+    margin: 36px 0 12px;
+  }
+
+  .doc-markdown-body :global(p) {
+    margin-bottom: 20px;
+    color: var(--positive-muted);
+  }
+
+  .doc-markdown-body :global(pre) {
+    background: #14171d;
+    border: var(--border);
+    padding: 20px;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    margin: 24px 0;
+  }
+
+  .doc-markdown-body :global(code) {
+    font-family: var(--font-mono);
+  }
+
+  .doc-markdown-body :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 28px 0;
+    font-size: 0.875rem;
+    border: var(--border);
+  }
+
+  .doc-markdown-body :global(th), .doc-markdown-body :global(td) {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-muted);
+    border-right: 1px solid var(--border-muted);
+  }
+
+  .doc-markdown-body :global(th:last-child), .doc-markdown-body :global(td:last-child) {
+    border-right: none;
+  }
+
+  .doc-markdown-body :global(th) {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--positive);
+    background: var(--negative-dark);
+  }
+
+  .doc-markdown-body :global(ul), .doc-markdown-body :global(ol) {
+    margin: 16px 0 24px 24px;
+    color: var(--positive-muted);
+  }
+
+  .doc-markdown-body :global(li) {
+    margin-bottom: 8px;
+  }
+
+  .doc-markdown-body :global(blockquote) {
+    border-left: 3px solid var(--rose);
+    padding: 16px 20px;
+    background: rgba(212, 99, 111, 0.08);
+    margin: 24px 0;
+  }
+
+  .doc-reader-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: var(--border);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .doc-reader-header {
+      padding: 32px 20px;
+    }
+    .doc-reader-layout {
+      padding: 32px 20px;
+    }
+  }
+</style>

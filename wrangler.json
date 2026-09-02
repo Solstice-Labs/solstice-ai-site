@@ -1,0 +1,12 @@
+{
+  "name": "solstice-ai",
+  "compatibility_date": "2026-09-01",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./dist/client"
+  },
+  "routes": [
+    { "pattern": "solstice-ai.co", "custom_domain": true },
+    { "pattern": "www.solstice-ai.co", "custom_domain": true }
+  ]
+}

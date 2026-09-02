@@ -1,0 +1,1138 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const papers = await getCollection('papers');
+const blogPosts = await getCollection('blog');
+
+const latestPaper = papers.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())[0];
+const recentPosts = blogPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 2);
+
+const teacherArchitectures = [
+  { name: 'GLM 5.2', lab: 'Zhipu AI', focus: 'OpenHands Agent Rollouts & Regen' },
+  { name: 'Claude Fable 5', lab: 'Anthropic', focus: 'Agentic Coding & CoT Traces' },
+  { name: 'GPT-5.6 Sol', lab: 'OpenAI', focus: 'Coding & ARC-AGI3 Challenges' },
+  { name: 'GPT-5.5 Codex', lab: 'OpenAI', focus: 'Code Specialization Streams' },
+  { name: 'DeepSeek V4 Pro', lab: 'DeepSeek', focus: '200K Math/STEM & SWE-bench' },
+  { name: 'Qwen 3.8 Max', lab: 'Alibaba Cloud', focus: 'Cross-Architecture Distillation' },
+  { name: 'Kimi K3 / Opus 4.7', lab: 'Moonshot / Anthropic', focus: 'Multi-Teacher Reasoning' },
+  { name: 'Manus Agents', lab: 'Manus AI', focus: 'Tool Sandbox Execution Logs' },
+];
+---
+
+<Layout title="Solstice-AI — Distilling Intelligence">
+
+  <!-- ═══════════════ 1. HERO WRAPPER (PRISMML ARCHITECTURE) ═══════════════ -->
+  <section class="section border-bottom">
+    <div class="container">
+      <div class="hero-split-grid">
+        <!-- Left Hero Column -->
+        <div class="hero-left-col">
+          <div class="hero-intro-box">
+            <div class="hero-eyebrow mono">
+              <span class="eyebrow-tag">SOLSTICE-AI</span>
+              <span class="eyebrow-dot">&bull;</span>
+              <span>OPEN INTELLIGENCE INFRASTRUCTURE</span>
+            </div>
+            <h1>Efficient intelligence.<br/><span class="hero-hl">Built for the real world.</span></h1>
+            <p class="hero-intro-text">
+              Open distillation corpora, calibrated sub-8B reasoning models, and high-throughput local inference. Frontier intelligence without closed APIs or datacenter scale.
+            </p>
+            <div class="hero-btn-row">
+              <a href="/docs/quantized-models-quickstart" class="btn solid">
+                <div class="btn-inner">
+                  <span class="btn-text">Explore Models</span>
+                  <span class="btn-arrow">→</span>
+                </div>
+              </a>
+              <a href="https://huggingface.co/Solstice-AI" target="_blank" rel="noopener noreferrer" class="btn rose">
+                <div class="btn-inner">
+                  <span class="btn-text">Hugging Face Hub</span>
+                  <span class="btn-arrow">↗</span>
+                </div>
+              </a>
+              <a href="https://github.com/Solstice-Labs" target="_blank" rel="noopener noreferrer" class="btn">
+                <div class="btn-inner">
+                  <span class="btn-text">GitHub</span>
+                  <span class="btn-arrow">↗</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Quick Anvil Terminal Launcher -->
+          <div class="hero-quick-terminal mono">
+            <div class="term-bar">
+              <span class="term-title">ANVIL TURBOQUANT CLI</span>
+              <span class="term-tag">262K CTX IN 4.1 GB</span>
+            </div>
+            <div class="term-code">
+              <span class="term-prompt">$</span>
+              <span class="term-cmd">anvil run huihui-qwen --ctx 262144 --type-k turbo4 --type-v turbo3</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Hero Column (Interactive Distillation Pipeline Diagram) -->
+        <div class="hero-right-col">
+          <div class="pipeline-visual-wrapper">
+            <div class="pipeline-title-bar mono">
+              <span>MULTI-TEACHER CONSENSUS PIPELINE</span>
+              <span class="live-dot">&bull; 60 SOURCES AUDITED</span>
+            </div>
+
+            <div class="teachers-matrix-list">
+              {teacherArchitectures.map((teacher, index) => (
+                <div class="teacher-matrix-row">
+                  <div class="t-col-idx mono">0{index + 1}</div>
+                  <div class="t-col-name">
+                    <span class="t-name">{teacher.name}</span>
+                    <span class="t-lab mono">{teacher.lab}</span>
+                  </div>
+                  <div class="t-col-focus mono">{teacher.focus}</div>
+                  <div class="t-col-status mono">VERIFIED</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Supporter / Lab Attribution Strip -->
+          <div class="attributions-strip mono">
+            <div class="attr-label">Supported Frameworks & Environments:</div>
+            <div class="attr-items">
+              <span>Anvil (llama.cpp TurboQuant)</span>
+              <span>&bull;</span>
+              <span>TurboQuant MLX (Metal)</span>
+              <span>&bull;</span>
+              <span>vLLM (FP8)</span>
+              <span>&bull;</span>
+              <span>Hugging Face TRL</span>
+              <span>&bull;</span>
+              <span>Axolotl</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Open Infrastructure Pillars (3-Column Row) -->
+      <div class="hero-pillars-3col">
+        <div class="pillar-col">
+          <div class="pillar-top mono">
+            <span class="pillar-idx">01</span>
+            <span class="pillar-badge rose">DATASETS</span>
+          </div>
+          <h3>Multi-Teacher Corpora</h3>
+          <p>Solace 1.0 Omni (12.59M conversations, 137.7 GB) and Project Axiom (102 GB CoT) across 7 frontier architectures.</p>
+          <div class="pillar-foot mono">
+            <span class="tag-chip">12.59M Rows</span>
+            <span class="tag-chip">137.7 GB</span>
+            <a href="/docs/solace-dataset-guide" class="pillar-link">Dataset Docs →</a>
+          </div>
+        </div>
+
+        <div class="pillar-col">
+          <div class="pillar-top mono">
+            <span class="pillar-idx">02</span>
+            <span class="pillar-badge amber">WEIGHTS</span>
+          </div>
+          <h3>Sub-8B Checkpoints</h3>
+          <p>11 Hugging Face Hub releases in FP8, INT4 AWQ, GGUF, and Apple MLX formats optimized for commodity local GPUs.</p>
+          <div class="pillar-foot mono">
+            <span class="tag-chip">11 Models</span>
+            <span class="tag-chip">GGUF & MLX</span>
+            <a href="/docs/quantized-models-quickstart" class="pillar-link">Model Guides →</a>
+          </div>
+        </div>
+
+        <div class="pillar-col">
+          <div class="pillar-top mono">
+            <span class="pillar-idx">03</span>
+            <span class="pillar-badge">INFERENCE</span>
+          </div>
+          <h3>Anvil & TurboQuant</h3>
+          <p>Compress 262k token context on Qwen 3.8 into ~4.1 GB VRAM via fused Fast Walsh-Hadamard transform KV cache quantization.</p>
+          <div class="pillar-foot mono">
+            <span class="tag-chip">262k in 4GB</span>
+            <span class="tag-chip">llama.cpp</span>
+            <a href="/docs/turboquant-anvil-guide" class="pillar-link">Engine Guide →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 2. INTERACTIVE BENCHMARK & DISTILLATION EXPLORER (PRISMML VIZ) ═══════════════ -->
+  <section class="section border-bottom" id="benchmarks-section">
+    <div class="container">
+      <div class="prism-viz-wrapper">
+        <!-- Visualizer Tab Bar -->
+        <div class="viz-tab-bar mono">
+          <button class="viz-tab-btn active" data-tab="composition">Corpus Breakdown</button>
+          <button class="viz-tab-btn" data-tab="dedup">Deduplication Yield</button>
+          <button class="viz-tab-btn" data-tab="turboquant">TurboQuant KV Cache</button>
+          <button class="viz-tab-btn" data-tab="models">Hub Downloads</button>
+        </div>
+
+        <!-- Viz Content Panels -->
+        <div class="viz-panel active" id="panel-composition">
+          <div class="viz-header">
+            <h3>Project Solace 1.0 Omni Composition</h3>
+            <p class="mono">12,586,893 unique conversations synthesized from 60 audited sources across 7 frontier architectures</p>
+          </div>
+          <div class="viz-rule"></div>
+
+          <!-- Benchmark Bar Chart Data -->
+          <div class="chart-bars-list">
+            <div class="chart-row">
+              <div class="chart-lbl mono highlight">Qwen 3.8-Max & Multi-Teacher Reasoning</div>
+              <div class="chart-track">
+                <div class="chart-fill solace-fill" style="width: 34.5%;">
+                  <span class="chart-val mono">4,342,000 (34.5%)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="chart-row">
+              <div class="chart-lbl mono">GLM 5.2 (15 Sources &bull; Agent Rollouts & Regen)</div>
+              <div class="chart-track">
+                <div class="chart-fill teacher-fill" style="width: 18.9%;">
+                  <span class="chart-val mono">2,380,000 (18.9%)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="chart-row">
+              <div class="chart-lbl mono">GPT-5.6 Sol & GPT-5.5 Codex (Code & ARC-AGI3)</div>
+              <div class="chart-track">
+                <div class="chart-fill teacher-fill" style="width: 16.8%;">
+                  <span class="chart-val mono">2,120,000 (16.8%)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="chart-row">
+              <div class="chart-lbl mono">Claude Fable 5 & Mythos (Clean Agent Traces)</div>
+              <div class="chart-track">
+                <div class="chart-fill teacher-fill" style="width: 16.0%;">
+                  <span class="chart-val mono">2,006,487 (16.0%)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="chart-row">
+              <div class="chart-lbl mono">DeepSeek V4 Pro 0813 (Math/STEM & SWE)</div>
+              <div class="chart-track">
+                <div class="chart-fill teacher-fill" style="width: 13.8%;">
+                  <span class="chart-val mono">1,738,406 (13.8%)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="viz-footer mono">
+            <span>Verified on Hugging Face: <a href="https://huggingface.co/datasets/Solstice-AI/Solace-1.0-Omni" target="_blank" rel="noopener noreferrer">Solstice-AI/Solace-1.0-Omni</a> (137.7 GB uncompressed / 34.3 GB gz).</span>
+          </div>
+        </div>
+
+        <!-- Dedup Panel -->
+        <div class="viz-panel" id="panel-dedup">
+          <div class="viz-header">
+            <h3>Exact SHA256 Deduplication Yield</h3>
+            <p class="mono">Eliminating cross-dataset contamination and scraping redundancy</p>
+          </div>
+          <div class="viz-rule"></div>
+          <div class="chart-bars-list">
+            <div class="chart-row">
+              <div class="chart-lbl mono">Raw Ingested Dataset Rows (60 Sources)</div>
+              <div class="chart-track">
+                <div class="chart-fill raw-fill" style="width: 100%;">
+                  <span class="chart-val mono">16,032,427 (100%)</span>
+                </div>
+              </div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-lbl mono highlight">Exact SHA256 Duplicates Purged</div>
+              <div class="chart-track">
+                <div class="chart-fill baseline-fill" style="width: 21.5%;">
+                  <span class="chart-val mono">3,445,534 (21.5% Redundant)</span>
+                </div>
+              </div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-lbl mono highlight">Final Clean Solace Yield</div>
+              <div class="chart-track">
+                <div class="chart-fill solace-fill" style="width: 78.5%;">
+                  <span class="chart-val mono">12,586,893 Unique Conversations (78.5%)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="viz-footer mono">
+            <span>Guarantees zero verbatim duplicate contamination across downstream fine-tuning.</span>
+          </div>
+        </div>
+
+        <!-- TurboQuant Panel -->
+        <div class="viz-panel" id="panel-turboquant">
+          <div class="viz-header">
+            <h3>Google TurboQuant KV Cache Compression (Anvil)</h3>
+            <p class="mono">Memory footprint at 32k context on NVIDIA RTX 4090 / Apple M4 Max</p>
+          </div>
+          <div class="viz-rule"></div>
+          <div class="chart-bars-list">
+            <div class="chart-row">
+              <div class="chart-lbl mono">Standard FP16 KV Cache (Vanilla llama.cpp)</div>
+              <div class="chart-track">
+                <div class="chart-fill raw-fill" style="width: 100%;">
+                  <span class="chart-val mono">16.4 GB (42.1 tok/s)</span>
+                </div>
+              </div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-lbl mono">Naive INT4 RTN (Perplexity Degraded)</div>
+              <div class="chart-track">
+                <div class="chart-fill baseline-fill" style="width: 29.3%;">
+                  <span class="chart-val mono">4.8 GB (Degraded Perplexity: 14.22)</span>
+                </div>
+              </div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-lbl mono highlight">TurboQuant 4-bit FWHT (Anvil Engine)</div>
+              <div class="chart-track">
+                <div class="chart-fill solace-fill" style="width: 25.6%;">
+                  <span class="chart-val mono">4.2 GB (-74% VRAM &bull; 61.8 tok/s / +46.8% Throughput)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="viz-footer mono">
+            <span>Fast Walsh-Hadamard Transform (FWHT) eliminates outlier activation spikes in O(d log d) time.</span>
+          </div>
+        </div>
+
+        <!-- Models Panel -->
+        <div class="viz-panel" id="panel-models">
+          <div class="viz-header">
+            <h3>Published Checkpoints on Hugging Face Hub</h3>
+            <p class="mono">1,489+ community downloads across MLX and GGUF quantizations</p>
+          </div>
+          <div class="viz-rule"></div>
+          <div class="chart-bars-list">
+            <div class="chart-row">
+              <div class="chart-lbl mono highlight">Qwen3.8-27B-Uncensored-mlx-6Bit</div>
+              <div class="chart-track">
+                <div class="chart-fill solace-fill" style="width: 79%;">
+                  <span class="chart-val mono">790 Downloads</span>
+                </div>
+              </div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-lbl mono highlight">Qwen3.8-27B-Cold-Fusion-GAIN-mlx-6Bit</div>
+              <div class="chart-track">
+                <div class="chart-fill solace-fill" style="width: 32.4%;">
+                  <span class="chart-val mono">324 Downloads</span>
+                </div>
+              </div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-lbl mono">Huihui-Qwen3.6-35B-Opus-GGUF</div>
+              <div class="chart-track">
+                <div class="chart-fill teacher-fill" style="width: 10%;">
+                  <span class="chart-val mono">100 Downloads</span>
+                </div>
+              </div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-lbl mono">ThinkingCap-Qwen3.6-27B-mlx-6Bit</div>
+              <div class="chart-track">
+                <div class="chart-fill teacher-fill" style="width: 7.9%;">
+                  <span class="chart-val mono">79 Downloads</span>
+                </div>
+              </div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-lbl mono">Qwopus3.6-27B-Coder-mlx-6Bit</div>
+              <div class="chart-track">
+                <div class="chart-fill teacher-fill" style="width: 4.8%;">
+                  <span class="chart-val mono">48 Downloads</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="viz-footer mono">
+            <span>Explore all checkpoints directly at <a href="https://huggingface.co/Solstice-AI" target="_blank" rel="noopener noreferrer">huggingface.co/Solstice-AI</a>.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 3. CORE INFRASTRUCTURE MATRIX ROWS ═══════════════ -->
+  <section class="section border-bottom">
+    <div class="container">
+      <div class="section-head-split">
+        <div>
+          <span class="eyebrow mono">ARCHITECTURE & TOOLING</span>
+          <h2>Open Infrastructure Stack</h2>
+        </div>
+        <p>
+          We provide every layer of the post-training distillation stack as open, reproducible artifacts.
+        </p>
+      </div>
+
+      <div class="arch-rows-list">
+        <div class="arch-row">
+          <div class="arch-index mono">01</div>
+          <div class="arch-main">
+            <h3>Multi-Teacher Reasoning Corpora</h3>
+            <p>
+              Uncensored chain-of-thought, code refactoring transcripts, and agentic sandbox tool invocations. All datasets are partitioned in Apache Parquet with full metadata attribution.
+            </p>
+          </div>
+          <div class="arch-action">
+            <a href="/docs/solace-dataset-guide" class="btn btn-sm">
+              <div class="btn-inner">
+                <span class="btn-text">Datasets</span>
+                <span class="btn-arrow">→</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="arch-row">
+          <div class="arch-index mono">02</div>
+          <div class="arch-main">
+            <h3>Sub-8B Quantized Student Models</h3>
+            <p>
+              Activation-calibrated student weights available in FP8, INT4 AWQ, and GGUF formats. Engineered to deliver near-lossless reasoning recovery on consumer devices.
+            </p>
+          </div>
+          <div class="arch-action">
+            <a href="/docs/quantized-models-quickstart" class="btn btn-sm">
+              <div class="btn-inner">
+                <span class="btn-text">Models</span>
+                <span class="btn-arrow">→</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="arch-row">
+          <div class="arch-index mono">03</div>
+          <div class="arch-main">
+            <h3>Anvil & TurboQuant Inference Engines</h3>
+            <p>
+              High-performance inference engines integrating Google TurboQuant FWHT-rotated KV cache compression (4.6x reduction) with Gemma 4 MTP and Qwen 3.6 NextN speculative decoding (+30-50% throughput).
+            </p>
+          </div>
+          <div class="arch-action">
+            <a href="/docs/turboquant-anvil-guide" class="btn btn-sm">
+              <div class="btn-inner">
+                <span class="btn-text">Anvil Engine</span>
+                <span class="btn-arrow">→</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="arch-row">
+          <div class="arch-index mono">04</div>
+          <div class="arch-main">
+            <h3>Empirical Research & Technical Reports</h3>
+            <p>
+              Peer-reviewed evaluation methodologies measuring reasoning degradation, KV cache optimization, and cross-architecture distillation transfer.
+            </p>
+          </div>
+          <div class="arch-action">
+            <a href="/papers" class="btn btn-sm">
+              <div class="btn-inner">
+                <span class="btn-text">Papers</span>
+                <span class="btn-arrow">→</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 4. LATEST PUBLICATIONS & NOTES (4-COL PRISMML GRID) ═══════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head-split">
+        <div>
+          <span class="eyebrow mono">PUBLICATIONS & WRITING</span>
+          <h2>Latest Research & Notes</h2>
+        </div>
+        <a href="/blog" class="btn btn-sm">
+          <div class="btn-inner">
+            <span class="btn-text">All Writing</span>
+            <span class="btn-arrow">→</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="news-posts-grid">
+        <!-- Featured Paper Card -->
+        {latestPaper && (
+          <article class="news-card featured-news">
+            <div class="news-meta mono">
+              <span class="badge rose">RESEARCH PAPER</span>
+              <span>{new Date(latestPaper.data.pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+            </div>
+            <h3>
+              <a href={`/papers/${latestPaper.id}`}>{latestPaper.data.title}</a>
+            </h3>
+            <p class="news-desc">{latestPaper.data.tldr}</p>
+            <div class="news-foot mono">
+              <span>{latestPaper.data.authors.join(', ')}</span>
+              <a href={`/papers/${latestPaper.id}`} class="news-more">Read paper →</a>
+            </div>
+          </article>
+        )}
+
+        <!-- Engineering Blog Posts -->
+        {recentPosts.map((post) => (
+          <article class="news-card">
+            <div class="news-meta mono">
+              <span class="badge">NOTE</span>
+              <span>{new Date(post.data.pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+            </div>
+            <h4>
+              <a href={`/blog/${post.id}`}>{post.data.title}</a>
+            </h4>
+            <p class="news-desc">{post.data.description}</p>
+            <div class="news-foot mono">
+              <span>{post.data.readingTime || 'Technical Post'}</span>
+              <a href={`/blog/${post.id}`} class="news-more">Read →</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  // Visualizer Tab Switching
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabBtns = document.querySelectorAll('.viz-tab-btn');
+    const tabPanels = document.querySelectorAll('.viz-panel');
+
+    tabBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetTab = btn.getAttribute('data-tab');
+
+        tabBtns.forEach((b) => b.classList.remove('active'));
+        tabPanels.forEach((p) => p.classList.remove('active'));
+
+        btn.classList.add('active');
+        const activePanel = document.getElementById(`panel-${targetTab}`);
+        if (activePanel) {
+          activePanel.classList.add('active');
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  /* ═══ Hero Split Grid ═══ */
+  .hero-split-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 0.95fr;
+    border-left: var(--border);
+    border-right: var(--border);
+  }
+
+  .hero-left-col {
+    padding: 64px 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    border-right: var(--border);
+  }
+
+  .hero-intro-box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .hero-intro-box h1 {
+    font-size: clamp(2.75rem, 4.8vw, 4.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    font-weight: 700;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--positive-dim);
+  }
+
+  .eyebrow-tag {
+    color: var(--rose);
+    font-weight: 700;
+  }
+
+  .eyebrow-dot {
+    color: var(--positive-dim);
+  }
+
+  .hero-hl {
+    color: var(--positive-bold);
+  }
+
+  .hero-intro-text {
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: var(--positive-muted);
+    max-width: 640px;
+  }
+
+  .hero-btn-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+
+  /* Quick Anvil Terminal */
+  .hero-quick-terminal {
+    background: #12161c;
+    border: var(--border);
+    border-top-left-radius: 8px 12px;
+    border-bottom-right-radius: 8px 12px;
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: auto;
+  }
+
+  .term-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.6875rem;
+  }
+
+  .term-title {
+    color: var(--rose);
+    font-weight: 700;
+  }
+
+  .term-tag {
+    color: var(--positive-dim);
+  }
+
+  .term-code {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8125rem;
+    color: var(--positive-bold);
+    overflow-x: auto;
+  }
+
+  .term-prompt {
+    color: var(--rose);
+    font-weight: 700;
+  }
+
+  .term-cmd {
+    white-space: nowrap;
+  }
+
+  /* Right Hero Column */
+  .hero-right-col {
+    background: var(--negative-dark);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pipeline-visual-wrapper {
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .pipeline-title-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.6875rem;
+    color: var(--positive-dim);
+    letter-spacing: 0.06em;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(232, 228, 223, 0.12);
+  }
+
+  .live-dot {
+    color: var(--accent-green);
+  }
+
+  .teachers-matrix-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .teacher-matrix-row {
+    display: grid;
+    grid-template-columns: 32px 1fr 1.3fr 70px;
+    align-items: center;
+    gap: 12px;
+    padding: 7px 12px;
+    background: rgba(232, 228, 223, 0.02);
+    border: 1px solid rgba(232, 228, 223, 0.06);
+    border-radius: 2px;
+    font-size: 0.75rem;
+  }
+
+  .t-col-idx {
+    color: var(--rose);
+    font-weight: 700;
+  }
+
+  .t-col-name {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .t-name {
+    font-weight: 600;
+    color: var(--positive-bold);
+  }
+
+  .t-lab {
+    font-size: 0.6875rem;
+    color: var(--positive-dim);
+  }
+
+  .t-col-focus {
+    color: var(--positive-muted);
+    font-size: 0.6875rem;
+  }
+
+  .t-col-status {
+    font-size: 0.625rem;
+    font-weight: 700;
+    color: var(--accent-green);
+    text-align: right;
+  }
+
+  .attributions-strip {
+    margin-top: auto;
+    border-top: var(--border);
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.6875rem;
+    color: var(--positive-dim);
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .attr-label {
+    color: var(--positive-dim);
+  }
+
+  .attr-items {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    color: var(--positive-muted);
+  }
+
+  /* ═══ 3 Core Pillars 3-Column Row ═══ */
+  .hero-pillars-3col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: var(--border);
+    border-left: var(--border);
+    border-right: var(--border);
+    background: var(--negative);
+  }
+
+  .pillar-col {
+    padding: 36px 32px;
+    border-right: var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--negative);
+    transition: background 0.15s ease;
+  }
+
+  .pillar-col:last-child {
+    border-right: none;
+  }
+
+  .pillar-col:hover {
+    background: rgba(232, 228, 223, 0.02);
+  }
+
+  .pillar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+  }
+
+  .pillar-idx {
+    color: var(--rose);
+    font-weight: 700;
+  }
+
+  .pillar-badge {
+    padding: 2px 8px;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    border: 1px solid var(--positive-dim);
+    color: var(--positive-muted);
+    border-radius: 2px;
+  }
+
+  .pillar-badge.rose {
+    border-color: var(--rose);
+    color: var(--rose);
+  }
+
+  .pillar-badge.amber {
+    border-color: var(--amber);
+    color: var(--amber);
+  }
+
+  .pillar-col h3 {
+    font-size: 1.25rem;
+    color: var(--positive-bold);
+  }
+
+  .pillar-col p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--positive-muted);
+  }
+
+  .pillar-foot {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    margin-top: auto;
+    padding-top: 12px;
+    flex-wrap: wrap;
+  }
+
+  .pillar-foot .tag-chip {
+    background: rgba(232, 228, 223, 0.06);
+    border: 1px solid rgba(232, 228, 223, 0.12);
+    padding: 2px 8px;
+    color: var(--positive-muted);
+    border-radius: 2px;
+  }
+
+  .pillar-link {
+    margin-left: auto;
+    color: var(--rose);
+    font-weight: 600;
+    transition: transform 0.15s ease;
+  }
+
+  .pillar-link:hover {
+    transform: translateX(3px);
+  }
+
+  /* ═══ Visualizer / Benchmark Styles ═══ */
+  .prism-viz-wrapper {
+    border: var(--border);
+    background: var(--negative);
+  }
+
+  .viz-tab-bar {
+    display: flex;
+    border-bottom: var(--border);
+    background: var(--negative-dark);
+    overflow-x: auto;
+  }
+
+  .viz-tab-btn {
+    background: transparent;
+    border: none;
+    border-right: var(--border);
+    padding: 16px 28px;
+    color: var(--positive-dim);
+    font-size: 0.8125rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+
+  .viz-tab-btn:hover, .viz-tab-btn.active {
+    background: var(--negative);
+    color: var(--rose);
+    font-weight: 700;
+  }
+
+  .viz-panel {
+    display: none;
+    padding: 48px;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .viz-panel.active {
+    display: flex;
+  }
+
+  .viz-header h3 {
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+  }
+
+  .viz-header p {
+    font-size: 0.875rem;
+    color: var(--positive-dim);
+  }
+
+  .viz-rule {
+    height: 1px;
+    background: var(--positive);
+    opacity: 0.15;
+  }
+
+  .chart-bars-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .chart-row {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .chart-lbl {
+    font-size: 0.8125rem;
+    color: var(--positive-muted);
+  }
+
+  .chart-lbl.highlight {
+    color: var(--rose);
+    font-weight: 600;
+  }
+
+  .chart-track {
+    background: rgba(232, 228, 223, 0.05);
+    height: 36px;
+    border: 1px solid rgba(232, 228, 223, 0.1);
+    position: relative;
+    border-radius: 2px;
+  }
+
+  .chart-fill {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    transition: width 0.4s ease;
+  }
+
+  .chart-fill.solace-fill {
+    background: var(--rose);
+  }
+
+  .chart-fill.teacher-fill {
+    background: rgba(232, 228, 223, 0.25);
+  }
+
+  .chart-fill.raw-fill {
+    background: rgba(232, 228, 223, 0.15);
+  }
+
+  .chart-fill.baseline-fill {
+    background: rgba(245, 158, 11, 0.4);
+  }
+
+  .chart-val {
+    font-size: 0.75rem;
+    color: #ffffff;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .viz-footer {
+    font-size: 0.75rem;
+    color: var(--positive-dim);
+    border-top: 1px solid rgba(232, 228, 223, 0.1);
+    padding-top: 16px;
+  }
+
+  .viz-footer a {
+    color: var(--rose);
+  }
+
+  /* ═══ Architecture Stack Rows ═══ */
+  .arch-rows-list {
+    display: flex;
+    flex-direction: column;
+    border-top: var(--border);
+    border-left: var(--border);
+    border-right: var(--border);
+  }
+
+  .arch-row {
+    display: grid;
+    grid-template-columns: 64px 1fr 160px;
+    align-items: center;
+    gap: 32px;
+    padding: 32px 36px;
+    border-bottom: var(--border);
+    background: var(--negative);
+    transition: background 0.15s ease;
+  }
+
+  .arch-row:hover {
+    background: rgba(232, 228, 223, 0.02);
+  }
+
+  .arch-index {
+    font-size: 1rem;
+    color: var(--rose);
+    font-weight: 600;
+  }
+
+  .arch-main h3 {
+    margin-bottom: 6px;
+  }
+
+  .arch-main p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .arch-action {
+    text-align: right;
+  }
+
+  /* ═══ News & Blog Grid ═══ */
+  .news-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-left: var(--border);
+    border-right: var(--border);
+    border-bottom: var(--border);
+  }
+
+  .news-card {
+    padding: 36px;
+    border-right: var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: var(--negative);
+  }
+
+  .news-card:last-child {
+    border-right: none;
+  }
+
+  .news-card.featured-news {
+    background: var(--negative-dark);
+  }
+
+  .news-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.75rem;
+    color: var(--positive-dim);
+  }
+
+  .news-card h3, .news-card h4 {
+    font-size: 1.25rem;
+    line-height: 1.35;
+  }
+
+  .news-card h3 a, .news-card h4 a {
+    color: var(--positive-bold);
+    text-decoration: none;
+  }
+
+  .news-desc {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--positive-muted);
+  }
+
+  .news-foot {
+    margin-top: auto;
+    padding-top: 14px;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--positive-dim);
+  }
+
+  .news-more {
+    color: var(--rose);
+    font-weight: 600;
+  }
+
+  /* ═══ Mobile Responsive ═══ */
+  @media (max-width: 960px) {
+    .hero-split-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-left-col {
+      border-right: none;
+      padding: 36px 20px;
+    }
+    .pipeline-visual-wrapper {
+      padding: 24px 20px;
+    }
+    .hero-pillars-3col {
+      grid-template-columns: 1fr;
+    }
+    .pillar-col {
+      border-right: none;
+      border-bottom: var(--border);
+      padding: 28px 20px;
+    }
+    .pillar-col:last-child {
+      border-bottom: none;
+    }
+    .arch-row {
+      grid-template-columns: 40px 1fr;
+      padding: 24px 20px;
+    }
+    .arch-action {
+      grid-column: 2;
+      text-align: left;
+    }
+    .news-posts-grid {
+      grid-template-columns: 1fr;
+    }
+    .news-card {
+      border-right: none;
+      border-bottom: var(--border);
+    }
+    .chart-row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+  }
+</style>

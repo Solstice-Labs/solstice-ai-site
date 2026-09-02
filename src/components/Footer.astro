@@ -1,0 +1,193 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer-main">
+    <div class="footer-intro">
+      <a href="/" class="footer-brand" aria-label="Solstice-AI Home">
+        <img src="/logo-light.svg" alt="Solstice-AI" width="150" height="43" class="footer-logo" />
+      </a>
+      <p class="footer-summary">
+        Open infrastructure for frontier AI. We build multi-teacher distillation datasets, quantized student models, and reproducible training tooling.
+      </p>
+      <div class="footer-license mono">
+        <span class="license-dot">&bull;</span> RELEASED UNDER AGPL-3.0 &bull; OPEN ACCESS
+      </div>
+    </div>
+
+    <div class="footer-nav-grid">
+      <div class="footer-column">
+        <div class="footer-label mono">Research</div>
+        <ul class="footer-links mono">
+          <li><a href="/papers">All Publications →</a></li>
+          <li><a href="/papers/solace-distillation-traces">Solace 1.0 Technical Report</a></li>
+          <li><a href="/papers/cross-architecture-reasoning-transfer">Cross-Architecture Transfer</a></li>
+          <li><a href="/docs/solace-dataset-guide">Distillation Traces</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <div class="footer-label mono">Documentation</div>
+        <ul class="footer-links mono">
+          <li><a href="/docs">Documentation Hub →</a></li>
+          <li><a href="/docs/turboquant-anvil-guide">Anvil & TurboQuant Engine</a></li>
+          <li><a href="/docs/quantized-models-quickstart">Hub Checkpoints Guide</a></li>
+          <li><a href="/docs/fine-tuning-guide">Fine-Tuning Recipe</a></li>
+          <li><a href="/docs/multi-teacher-verification">Verification Pipeline</a></li>
+          <li><a href="/docs/trace-schema-reference">Parquet Schema Reference</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <div class="footer-label mono">Ecosystem & Lab</div>
+        <ul class="footer-links mono">
+          <li><a href="https://huggingface.co/Solstice-AI" target="_blank" rel="noopener noreferrer">Hugging Face Hub ↗</a></li>
+          <li><a href="https://github.com/Solstice-Labs" target="_blank" rel="noopener noreferrer">GitHub Repositories ↗</a></li>
+          <li><a href="/company">Manifesto & Roadmap</a></li>
+          <li><a href="/blog">Engineering Notes</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner mono">
+      <div class="footer-copyright">
+        &copy; {currentYear} Solstice-AI Foundation &bull; Open Distillation Infrastructure
+      </div>
+      <div class="footer-meta">
+        <span>Astro &bull; Cloudflare Edge</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--negative-dark);
+    border-top: var(--border);
+    margin-top: auto;
+  }
+
+  .footer-main {
+    padding: 72px 0 56px;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 64px;
+    border-left: var(--border);
+    border-right: var(--border);
+  }
+
+  .footer-intro {
+    padding-left: 40px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .footer-logo {
+    height: 28px;
+    width: auto;
+    display: block;
+  }
+
+  .footer-summary {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--positive-muted);
+  }
+
+  .footer-license {
+    font-size: 0.75rem;
+    color: var(--amber);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  .license-dot {
+    color: var(--rose);
+  }
+
+  .footer-nav-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    padding-right: 40px;
+  }
+
+  .footer-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--positive-bold);
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-links a {
+    font-size: 0.8125rem;
+    color: var(--positive-muted);
+    transition: color 0.15s ease, transform 0.15s ease;
+    display: inline-block;
+  }
+
+  .footer-links a:hover {
+    color: var(--positive);
+    transform: translateX(2px);
+  }
+
+  .footer-bottom {
+    border-top: var(--border);
+    padding: 24px 0;
+    background: var(--negative);
+  }
+
+  .footer-bottom-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--positive-dim);
+    border-left: var(--border);
+    border-right: var(--border);
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media (max-width: 960px) {
+    .footer-main {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .footer-intro {
+      padding: 0 20px;
+    }
+    .footer-nav-grid {
+      grid-template-columns: repeat(2, 1fr);
+      padding: 0 20px;
+    }
+    .footer-bottom-inner {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+      padding: 0 20px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .footer-nav-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

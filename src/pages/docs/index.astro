@@ -1,0 +1,290 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allDocs = await getCollection('docs');
+
+const categories = [
+  {
+    id: 'datasets',
+    badge: 'DATASETS & TRACES',
+    title: 'Multi-Teacher Reasoning Corpora',
+    desc: 'Schema specifications, Apache Parquet downloads, and Hugging Face dataset loaders.',
+  },
+  {
+    id: 'models',
+    badge: 'STUDENT WEIGHTS',
+    title: 'Sub-8B Quantized Checkpoints',
+    desc: 'vLLM, llama.cpp, Ollama, and Apple MLX deployment guides for FP8, INT4 AWQ, and GGUF.',
+  },
+  {
+    id: 'tooling',
+    badge: 'VERIFICATION HARNESS',
+    title: 'Rejection Sampling & Tooling',
+    desc: 'Automated compiler sandboxes, Lean 4 theorem verifiers, and consensus ranking pipelines.',
+  },
+  {
+    id: 'guides',
+    badge: 'HOW-TO RECIPES',
+    title: 'Fine-Tuning & Training Recipes',
+    desc: 'End-to-end recipes for fine-tuning Llama 3.1 and Qwen 2.5 on consumer and cloud GPUs.',
+  },
+];
+---
+
+<Layout
+  title="Documentation & Tooling Hub — Solstice-AI"
+  description="Comprehensive guides, Parquet schemas, quantized model cards, and fine-tuning recipes for Solstice-AI open infrastructure."
+>
+  <div class="container docs-page-wrapper">
+    <!-- Header Banner -->
+    <div class="docs-header-banner">
+      <span class="eyebrow mono">DOCUMENTATION &bull; SPECIFICATIONS &bull; TOOLING</span>
+      <h1>Documentation Hub</h1>
+      <p class="docs-lead">
+        Complete guides for inspecting Solace distillation datasets, deploying sub-8B quantized weights locally, and running fine-tuning harnesses.
+      </p>
+
+      <!-- Quick Command Bar -->
+      <div class="quick-cmd-box mono">
+        <span class="cmd-prompt">$</span>
+        <span class="cmd-text">anvil run huihui-qwen --ctx 262144 --type-k turbo4 --type-v turbo3</span>
+      </div>
+    </div>
+
+    <!-- 4 Main Documentation Category Panels (2x2 Matrix) -->
+    <div class="docs-category-grid">
+      {categories.map((cat, idx) => {
+        const catDocs = allDocs
+          .filter((d) => d.data.category === cat.id)
+          .sort((a, b) => a.data.order - b.data.order);
+
+        return (
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-card-meta mono">
+                <span class="badge amber">{cat.badge}</span>
+                <span class="doc-count">{catDocs.length} {catDocs.length === 1 ? 'guide' : 'guides'}</span>
+              </div>
+              <h2>{cat.title}</h2>
+              <p class="cat-description">{cat.desc}</p>
+            </div>
+
+            <div class="doc-links-stack">
+              {catDocs.length > 0 ? (
+                catDocs.map((doc) => (
+                  <a href={`/docs/${doc.id}`} class="doc-link-item">
+                    <div class="doc-link-main">
+                      <span class="doc-link-title">{doc.data.title}</span>
+                      <span class="doc-link-desc">{doc.data.description}</span>
+                    </div>
+                    <span class="doc-link-arrow">→</span>
+                  </a>
+                ))
+              ) : (
+                <div class="doc-empty mono">Documentation releasing soon</div>
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .docs-page-wrapper {
+    padding-top: 48px;
+    padding-bottom: 96px;
+  }
+
+  .docs-header-banner {
+    padding: 64px 40px 48px;
+    width: 100%;
+    border: var(--border);
+    background: var(--negative);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .docs-header-banner h1 {
+    margin: 4px 0 8px;
+  }
+
+  .docs-lead {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--positive-muted);
+    max-width: 920px;
+  }
+
+  .quick-cmd-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    background: var(--negative-dark);
+    border: var(--border);
+    border-top-left-radius: 8px 12px;
+    border-bottom-right-radius: 8px 12px;
+    font-size: 0.8125rem;
+    color: var(--positive);
+    overflow-x: auto;
+    margin-top: 8px;
+  }
+
+  .cmd-prompt {
+    color: var(--rose);
+    font-weight: 700;
+  }
+
+  .cmd-text {
+    white-space: nowrap;
+  }
+
+  .docs-grid-section {
+    padding-bottom: 96px;
+  }
+
+  .docs-category-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-left: var(--border);
+    border-right: var(--border);
+    border-bottom: var(--border);
+  }
+
+  .doc-card {
+    padding: 48px 40px;
+    border-right: var(--border);
+    border-bottom: var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    background: var(--negative);
+    transition: background 0.15s ease;
+  }
+
+  .doc-card:nth-child(2n) {
+    border-right: none;
+  }
+
+  .doc-card:nth-last-child(-n+2) {
+    border-bottom: none;
+  }
+
+  .doc-card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .doc-card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--positive-dim);
+  }
+
+  .badge.amber {
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid var(--amber);
+    color: var(--amber);
+    padding: 2px 8px;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    border-radius: 2px;
+  }
+
+  .doc-card h2 {
+    font-size: 1.45rem;
+    line-height: 1.25;
+  }
+
+  .cat-description {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--positive-muted);
+  }
+
+  .doc-links-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: auto;
+  }
+
+  .doc-link-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: var(--negative-dark);
+    border: 1px solid rgba(232, 228, 223, 0.12);
+    border-radius: 4px;
+    gap: 16px;
+    transition: all 0.15s ease;
+  }
+
+  .doc-link-item:hover {
+    border-color: var(--positive);
+    background: rgba(232, 228, 223, 0.04);
+    transform: translateX(2px);
+  }
+
+  .doc-link-main {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .doc-link-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--positive);
+  }
+
+  .doc-link-desc {
+    font-size: 0.8125rem;
+    color: var(--positive-dim);
+    line-height: 1.4;
+  }
+
+  .doc-link-arrow {
+    color: var(--rose);
+    font-weight: 600;
+    transition: transform 0.15s ease;
+  }
+
+  .doc-link-item:hover .doc-link-arrow {
+    transform: translateX(4px);
+  }
+
+  .doc-empty {
+    font-size: 0.8125rem;
+    color: var(--positive-dim);
+    padding: 16px;
+    border: 1px dashed rgba(232, 228, 223, 0.15);
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .docs-category-grid {
+      grid-template-columns: 1fr;
+    }
+    .doc-card {
+      border-right: none;
+      border-bottom: var(--border);
+      padding: 32px 20px;
+    }
+    .doc-card:last-child {
+      border-bottom: none;
+    }
+    .docs-header-banner {
+      padding: 36px 20px;
+    }
+  }
+</style>

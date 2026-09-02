@@ -1,0 +1,169 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const papers = await getCollection('papers');
+const sortedPapers = papers.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Layout
+  title="Research & Publications — Solstice-AI"
+  description="Open research publications, technical reports, and empirical benchmarks from Solstice-AI."
+>
+  <div class="container papers-page-wrapper">
+    <div class="page-title-banner">
+      <span class="eyebrow">EMPIRICAL BENCHMARKS &bull; OPEN METHODOLOGY</span>
+      <h1>Research & Publications</h1>
+      <p class="page-summary">
+        We publish open technical reports, distillation methodologies, and evaluation harnesses alongside our datasets and weights.
+      </p>
+    </div>
+
+    <div class="papers-grid">
+      {sortedPapers.map((paper) => (
+        <article class="paper-grid-card">
+          <div class="paper-card-top mono">
+            <span class="badge rose">{paper.data.venue}</span>
+            {paper.data.arxivId && <span class="badge">arXiv:{paper.data.arxivId}</span>}
+            <time datetime={paper.data.pubDate.toISOString()}>
+              {new Date(paper.data.pubDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+            </time>
+          </div>
+
+          <h2>
+            <a href={`/papers/${paper.id}`}>{paper.data.title}</a>
+          </h2>
+
+          <p class="paper-authors mono">
+            {paper.data.authors.join(', ')}
+          </p>
+
+          <p class="paper-tldr">
+            {paper.data.tldr}
+          </p>
+
+          <div class="paper-card-footer">
+            <a href={`/papers/${paper.id}`} class="btn solid btn-sm">
+              <div class="btn-inner">
+                <span class="btn-text">Read Paper</span>
+                <span class="btn-arrow">→</span>
+              </div>
+            </a>
+            {paper.data.pdfUrl && (
+              <a href={paper.data.pdfUrl} target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+                <div class="btn-inner">
+                  <span class="btn-text">PDF</span>
+                  <span class="btn-arrow">↗</span>
+                </div>
+              </a>
+            )}
+            {paper.data.huggingfaceUrl && (
+              <a href={paper.data.huggingfaceUrl} target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+                <div class="btn-inner">
+                  <span class="btn-text">Hugging Face</span>
+                  <span class="btn-arrow">↗</span>
+                </div>
+              </a>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .papers-page-wrapper {
+    padding-top: 48px;
+    padding-bottom: 96px;
+  }
+
+  .page-title-banner {
+    padding: 64px 40px 48px;
+    border: var(--border);
+    background: var(--negative);
+  }
+
+  .page-title-banner h1 {
+    margin: 8px 0 16px;
+  }
+
+  .page-summary {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--positive-muted);
+    max-width: 840px;
+  }
+
+  .papers-grid {
+    display: flex;
+    flex-direction: column;
+    border-left: var(--border);
+    border-right: var(--border);
+    border-bottom: var(--border);
+  }
+
+  .paper-grid-card {
+    padding: 48px 40px;
+    border-bottom: var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: var(--negative);
+  }
+
+  .paper-grid-card:last-child {
+    border-bottom: none;
+  }
+
+  .paper-card-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.75rem;
+    color: var(--positive-dim);
+    flex-wrap: wrap;
+  }
+
+  .badge.rose {
+    background: var(--rose);
+    border-color: var(--rose);
+    color: #ffffff;
+  }
+
+  .paper-grid-card h2 {
+    font-size: 1.75rem;
+    line-height: 1.25;
+  }
+
+  .paper-grid-card h2 a:hover {
+    color: var(--rose);
+  }
+
+  .paper-authors {
+    font-size: 0.8125rem;
+    color: var(--positive-dim);
+  }
+
+  .paper-tldr {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--positive-muted);
+    max-width: 900px;
+  }
+
+  .paper-card-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .page-title-banner,
+    .paper-grid-card {
+      padding: 32px 20px;
+    }
+  }
+</style>

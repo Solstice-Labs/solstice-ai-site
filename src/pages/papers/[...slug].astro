@@ -1,0 +1,289 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const papers = await getCollection('papers');
+  return papers.map((paper) => ({
+    params: { slug: paper.id },
+    props: { paper },
+  }));
+}
+
+const { paper } = Astro.props;
+const { Content } = await render(paper);
+---
+
+<Layout
+  title={`${paper.data.title} — Solstice-AI Research`}
+  description={paper.data.tldr}
+>
+  <div class="container paper-page-wrapper">
+    <div class="paper-reader-header">
+      <nav class="back-nav mono">
+        <a href="/papers">← All Publications</a>
+      </nav>
+
+      <div class="paper-meta-strip mono">
+        <span class="badge rose">{paper.data.venue}</span>
+        {paper.data.arxivId && <span class="badge">arXiv:{paper.data.arxivId}</span>}
+        <time datetime={paper.data.pubDate.toISOString()}>
+          {new Date(paper.data.pubDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+        </time>
+      </div>
+
+      <h1>{paper.data.title}</h1>
+
+      <div class="authors-strip mono">
+        <span>Authors:</span>
+        <span class="authors-names">{paper.data.authors.join(', ')}</span>
+      </div>
+
+      <div class="paper-action-bar">
+        {paper.data.pdfUrl && (
+          <a href={paper.data.pdfUrl} target="_blank" rel="noopener noreferrer" class="btn solid btn-sm">
+            <div class="btn-inner">
+              <span class="btn-text">Download PDF</span>
+              <span class="btn-arrow">↗</span>
+            </div>
+          </a>
+        )}
+        {paper.data.huggingfaceUrl && (
+          <a href={paper.data.huggingfaceUrl} target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+            <div class="btn-inner">
+              <span class="btn-text">Hugging Face Hub</span>
+              <span class="btn-arrow">↗</span>
+            </div>
+          </a>
+        )}
+        {paper.data.githubUrl && (
+          <a href={paper.data.githubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+            <div class="btn-inner">
+              <span class="btn-text">Code & Harness</span>
+              <span class="btn-arrow">↗</span>
+            </div>
+          </a>
+        )}
+      </div>
+    </div>
+
+    <div class="paper-reader-layout">
+      <!-- Abstract Callout -->
+      <div class="abstract-card">
+        <div class="abstract-tag mono">ABSTRACT</div>
+        <p class="abstract-content">{paper.data.abstract}</p>
+      </div>
+
+      <!-- Markdown Body -->
+      <div class="paper-markdown-body">
+        <Content />
+      </div>
+
+      <!-- BibTeX Box -->
+      <div class="bibtex-container">
+        <div class="bibtex-bar mono">
+          <span>BIBTEX CITATION</span>
+          <button class="btn btn-sm" id="bibtexCopyBtn">Copy</button>
+        </div>
+        <pre class="bibtex-snippet"><code id="bibtexText">{paper.data.bibtex}</code></pre>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const copyBtn = document.getElementById('bibtexCopyBtn');
+  const codeEl = document.getElementById('bibtexText');
+
+  if (copyBtn && codeEl) {
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(codeEl.innerText);
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  }
+</script>
+
+<style>
+  .paper-page-wrapper {
+    padding-top: 48px;
+    padding-bottom: 96px;
+  }
+
+  .paper-reader-header {
+    padding: 48px 40px;
+    border: var(--border);
+    background: var(--negative);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .back-nav a {
+    font-size: 0.8125rem;
+    color: var(--positive-dim);
+  }
+
+  .back-nav a:hover {
+    color: var(--positive);
+  }
+
+  .paper-meta-strip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.75rem;
+    color: var(--positive-dim);
+  }
+
+  .badge.rose {
+    background: var(--rose);
+    border-color: var(--rose);
+    color: #ffffff;
+  }
+
+  .paper-reader-header h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+  }
+
+  .authors-strip {
+    font-size: 0.875rem;
+    color: var(--positive-dim);
+    display: flex;
+    gap: 8px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-muted);
+  }
+
+  .authors-names {
+    color: var(--positive-muted);
+  }
+
+  .paper-action-bar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+
+  .paper-reader-container {
+    padding: 0 0 96px;
+  }
+
+  .paper-reader-layout {
+    border-left: var(--border);
+    border-right: var(--border);
+    border-bottom: var(--border);
+    padding: 56px 48px;
+    background: var(--negative);
+  }
+
+  .abstract-card {
+    background: repeating-linear-gradient(
+      -58deg,
+      rgba(206, 190, 190, 0.08) 0 1px,
+      transparent 1px 12px
+    );
+    border: var(--border);
+    border-left: 3px solid var(--rose);
+    padding: 28px;
+    margin-bottom: 48px;
+    border-top-left-radius: 12px 18px;
+    border-bottom-right-radius: 12px 18px;
+  }
+
+  .abstract-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--rose);
+    margin-bottom: 8px;
+  }
+
+  .abstract-content {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--positive);
+  }
+
+  .paper-markdown-body {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--positive);
+    max-width: 820px;
+  }
+
+  .paper-markdown-body :global(h2) {
+    font-size: 1.6rem;
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-muted);
+  }
+
+  .paper-markdown-body :global(p) {
+    margin-bottom: 20px;
+    color: var(--positive-muted);
+  }
+
+  .paper-markdown-body :global(pre) {
+    background: #14171d;
+    border: var(--border);
+    padding: 20px;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    margin: 24px 0;
+  }
+
+  .paper-markdown-body :global(code) {
+    font-family: var(--font-mono);
+  }
+
+  .paper-markdown-body :global(ul), .paper-markdown-body :global(ol) {
+    margin: 16px 0 24px 24px;
+    color: var(--positive-muted);
+  }
+
+  .paper-markdown-body :global(li) {
+    margin-bottom: 8px;
+  }
+
+  .bibtex-container {
+    margin-top: 56px;
+    border: var(--border);
+    background: #14171d;
+  }
+
+  .bibtex-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+    background: var(--negative-dark);
+    border-bottom: var(--border);
+    font-size: 0.75rem;
+    color: var(--positive-dim);
+  }
+
+  .bibtex-snippet {
+    padding: 20px;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--positive-muted);
+    line-height: 1.6;
+    overflow-x: auto;
+  }
+
+  @media (max-width: 768px) {
+    .paper-reader-header {
+      padding: 32px 20px;
+    }
+    .paper-reader-layout {
+      padding: 32px 20px;
+    }
+  }
+</style>
