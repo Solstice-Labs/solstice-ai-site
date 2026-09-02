@@ -4,73 +4,172 @@ import { getCollection } from 'astro:content';
 
 const papers = await getCollection('papers');
 const sortedPapers = papers.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+function getTrackInfo(paper: any) {
+  const t = paper.data.tags || [];
+  const title = (paper.data.title || '').toLowerCase();
+  
+  if (t.some((x: string) => ['kv-cache', 'turboquant', 'quantization', 'fwht', 'attention-buffers'].includes(x)) || title.includes('turboquant') || title.includes('walsh-hadamard') || title.includes('kv cache') || title.includes('kv quantization')) {
+    return { id: 'track-2', name: 'Track 2: KV Cache & TurboQuant', short: 'KV Cache' };
+  }
+  if (t.some((x: string) => ['speculative-decoding', 'speculative', 'mtp', 'tree-verification', 'lookahead'].includes(x)) || title.includes('speculative') || title.includes('draft') || title.includes('lookahead')) {
+    return { id: 'track-3', name: 'Track 3: Speculative Runtimes', short: 'Speculative' };
+  }
+  if (t.some((x: string) => ['formal-verification', 'compiler', 'ast', 'lean4', 'isabelle', 'rlcf', 'assertions'].includes(x)) || title.includes('ast') || title.includes('formal') || title.includes('compiler') || title.includes('verification') || title.includes('rlcf')) {
+    return { id: 'track-4', name: 'Track 4: Verification & Formal Methods', short: 'Verification' };
+  }
+  if (t.some((x: string) => ['sovereign-ai', 'edge-compute', 'air-gapped', 'scrna-seq', 'financial', 'robotics'].includes(x)) || title.includes('sovereign') || title.includes('air-gapped') || title.includes('scrna-seq') || title.includes('vpc') || title.includes('sub-15w')) {
+    return { id: 'track-5', name: 'Track 5: Sovereign Edge & Systems', short: 'Sovereign Edge' };
+  }
+  return { id: 'track-1', name: 'Track 1: Distillation Foundations', short: 'Distillation' };
+}
 ---
 
 <Layout
   title="Research & Publications — Solstice-AI"
-  description="Open research publications, technical reports, and empirical benchmarks from Solstice-AI."
+  description="50 open research publications, technical reports, and empirical benchmarks from Solstice-AI across distillation, KV compression, speculative decoding, and formal verification."
 >
   <div class="container papers-page-wrapper">
     <div class="page-title-banner">
-      <span class="eyebrow">EMPIRICAL BENCHMARKS &bull; OPEN METHODOLOGY</span>
+      <div class="banner-top-meta mono">
+        <span class="eyebrow">50 TECHNICAL REPORTS &bull; OPEN METHODOLOGY &bull; PEER-VERIFIED ARTIFACTS</span>
+        <span class="counter-badge mono">{sortedPapers.length} Papers Live</span>
+      </div>
       <h1>Research & Publications</h1>
       <p class="page-summary">
-        We publish open technical reports, distillation methodologies, and evaluation harnesses alongside our datasets and weights.
+        We publish open technical reports, distillation methodologies, and evaluation harnesses alongside our datasets and weights. All benchmark harnesses and calibration scripts are reproducible.
       </p>
+
+      <!-- Search and Filter Controls -->
+      <div class="search-filter-controls">
+        <div class="search-box-wrapper">
+          <input
+            type="text"
+            id="paper-search-input"
+            class="paper-search-input mono"
+            placeholder="Search 50 papers by title, topic, algorithm, or author..."
+            autocomplete="off"
+          />
+        </div>
+        <div class="track-filter-bar mono" id="track-filter-bar">
+          <button class="track-btn active" data-track="all">All Tracks ({sortedPapers.length})</button>
+          <button class="track-btn" data-track="track-1">Track 1: Distillation</button>
+          <button class="track-btn" data-track="track-2">Track 2: TurboQuant</button>
+          <button class="track-btn" data-track="track-3">Track 3: Speculative</button>
+          <button class="track-btn" data-track="track-4">Track 4: Verification</button>
+          <button class="track-btn" data-track="track-5">Track 5: Sovereign Edge</button>
+        </div>
+      </div>
     </div>
 
-    <div class="papers-grid">
-      {sortedPapers.map((paper) => (
-        <article class="paper-grid-card">
-          <div class="paper-card-top mono">
-            <span class="badge rose">{paper.data.venue}</span>
-            {paper.data.arxivId && <span class="badge">arXiv:{paper.data.arxivId}</span>}
-            <time datetime={paper.data.pubDate.toISOString()}>
-              {new Date(paper.data.pubDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
-            </time>
-          </div>
+    <div class="papers-grid" id="papers-grid-container">
+      {sortedPapers.map((paper) => {
+        const track = getTrackInfo(paper);
+        return (
+          <article class="paper-grid-card" data-track={track.id} data-search={`${paper.data.title} ${paper.data.tldr} ${paper.data.authors.join(' ')} ${(paper.data.tags || []).join(' ')}`.toLowerCase()}>
+            <div class="paper-card-top mono">
+              <span class="badge rose">{track.short}</span>
+              <span class="badge">{paper.data.venue}</span>
+              {paper.data.arxivId && <span class="badge">arXiv:{paper.data.arxivId}</span>}
+              <time datetime={paper.data.pubDate.toISOString()}>
+                {new Date(paper.data.pubDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+              </time>
+            </div>
 
-          <h2>
-            <a href={`/papers/${paper.id}`}>{paper.data.title}</a>
-          </h2>
+            <h2>
+              <a href={`/papers/${paper.id}`}>{paper.data.title}</a>
+            </h2>
 
-          <p class="paper-authors mono">
-            {paper.data.authors.join(', ')}
-          </p>
+            <p class="paper-authors mono">
+              {paper.data.authors.join(', ')}
+            </p>
 
-          <p class="paper-tldr">
-            {paper.data.tldr}
-          </p>
+            <p class="paper-tldr">
+              {paper.data.tldr}
+            </p>
 
-          <div class="paper-card-footer">
-            <a href={`/papers/${paper.id}`} class="btn solid btn-sm">
-              <div class="btn-inner">
-                <span class="btn-text">Read Paper</span>
-                <span class="btn-arrow">→</span>
+            {paper.data.highlightMetrics && paper.data.highlightMetrics.length > 0 && (
+              <div class="paper-metrics-row mono">
+                {paper.data.highlightMetrics.map((m: any) => (
+                  <div class="metric-pill">
+                    <span class="m-val">{m.value}</span>
+                    <span class="m-lbl">{m.label}</span>
+                  </div>
+                ))}
               </div>
-            </a>
-            {paper.data.pdfUrl && (
-              <a href={paper.data.pdfUrl} target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+            )}
+
+            <div class="paper-card-footer">
+              <a href={`/papers/${paper.id}`} class="btn solid btn-sm">
                 <div class="btn-inner">
-                  <span class="btn-text">PDF</span>
-                  <span class="btn-arrow">↗</span>
+                  <span class="btn-text">Read Paper</span>
+                  <span class="btn-arrow">→</span>
                 </div>
               </a>
-            )}
-            {paper.data.huggingfaceUrl && (
-              <a href={paper.data.huggingfaceUrl} target="_blank" rel="noopener noreferrer" class="btn btn-sm">
-                <div class="btn-inner">
-                  <span class="btn-text">Hugging Face</span>
-                  <span class="btn-arrow">↗</span>
-                </div>
-              </a>
-            )}
-          </div>
-        </article>
-      ))}
+              {paper.data.pdfUrl && (
+                <a href={paper.data.pdfUrl} target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+                  <div class="btn-inner">
+                    <span class="btn-text">PDF</span>
+                    <span class="btn-arrow">↗</span>
+                  </div>
+                </a>
+              )}
+              {paper.data.huggingfaceUrl && (
+                <a href={paper.data.huggingfaceUrl} target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+                  <div class="btn-inner">
+                    <span class="btn-text">Hugging Face</span>
+                    <span class="btn-arrow">↗</span>
+                  </div>
+                </a>
+              )}
+            </div>
+          </article>
+        );
+      })}
     </div>
   </div>
 </Layout>
+
+<script>
+  const searchInput = document.getElementById('paper-search-input') as HTMLInputElement | null;
+  const trackButtons = document.querySelectorAll('.track-btn');
+  const paperCards = document.querySelectorAll('.paper-grid-card') as NodeListOf<HTMLElement>;
+
+  let activeTrack = 'all';
+  let activeQuery = '';
+
+  function filterCards() {
+    paperCards.forEach((card) => {
+      const cardTrack = card.getAttribute('data-track') || '';
+      const cardSearch = card.getAttribute('data-search') || '';
+
+      const matchesTrack = activeTrack === 'all' || cardTrack === activeTrack;
+      const matchesQuery = !activeQuery || cardSearch.includes(activeQuery);
+
+      if (matchesTrack && matchesQuery) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      activeQuery = (e.target as HTMLInputElement).value.trim().toLowerCase();
+      filterCards();
+    });
+  }
+
+  trackButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      trackButtons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeTrack = btn.getAttribute('data-track') || 'all';
+      filterCards();
+    });
+  });
+</script>
 
 <style>
   .papers-page-wrapper {
@@ -79,20 +178,103 @@ const sortedPapers = papers.sort((a, b) => b.data.pubDate.valueOf() - a.data.pub
   }
 
   .page-title-banner {
-    padding: 64px 40px 48px;
+    padding: 64px 40px 40px;
     border: var(--border);
     background: var(--negative);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .banner-top-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .counter-badge {
+    font-size: 0.75rem;
+    padding: 2px 10px;
+    border: 1px solid var(--rose);
+    color: var(--rose);
+    border-radius: 2px;
+    font-weight: 700;
   }
 
   .page-title-banner h1 {
-    margin: 8px 0 16px;
+    margin: 0;
   }
 
   .page-summary {
     font-size: 1.15rem;
     line-height: 1.6;
     color: var(--positive-muted);
-    max-width: 840px;
+    max-width: 880px;
+  }
+
+  /* Search & Track Filter Controls */
+  .search-filter-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(232, 228, 223, 0.1);
+  }
+
+  .search-box-wrapper {
+    width: 100%;
+  }
+
+  .paper-search-input {
+    width: 100%;
+    padding: 14px 18px;
+    background: #0d1015;
+    border: var(--border);
+    color: var(--positive);
+    font-size: 0.875rem;
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+
+  .paper-search-input:focus {
+    border-color: var(--rose);
+  }
+
+  .paper-search-input::placeholder {
+    color: var(--positive-dim);
+  }
+
+  .track-filter-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .track-btn {
+    padding: 8px 14px;
+    font-size: 0.75rem;
+    background: var(--negative-dark);
+    border: var(--border);
+    color: var(--positive-muted);
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s ease;
+  }
+
+  .track-btn:hover {
+    color: var(--positive);
+    border-color: var(--positive-muted);
+  }
+
+  .track-btn.active {
+    background: var(--rose);
+    border-color: var(--rose);
+    color: #ffffff;
+    font-weight: 700;
   }
 
   .papers-grid {
@@ -150,6 +332,35 @@ const sortedPapers = papers.sort((a, b) => b.data.pubDate.valueOf() - a.data.pub
     line-height: 1.6;
     color: var(--positive-muted);
     max-width: 900px;
+  }
+
+  /* Highlight Metrics Row */
+  .paper-metrics-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+
+  .metric-pill {
+    padding: 6px 12px;
+    background: #0d1015;
+    border: 1px solid rgba(232, 228, 223, 0.12);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+  }
+
+  .metric-pill .m-val {
+    color: var(--positive-bold);
+    font-weight: 700;
+  }
+
+  .metric-pill .m-lbl {
+    color: var(--positive-dim);
+    font-size: 0.6875rem;
   }
 
   .paper-card-footer {
