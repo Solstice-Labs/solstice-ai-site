@@ -208,6 +208,81 @@ const hardwareTiers = [
           </ul>
         </div>
       </div>
+
+      <!-- EMPIRICAL BENCHMARK DOMINANCE VS CLAUDE OPUS 4.6 MAX -->
+      <div class="arch-row" style="margin-top: 32px; border-top: 1px solid var(--border);">
+        <div class="arch-main" style="width: 100%;">
+          <div class="mono" style="font-size: 11px; color: var(--rose); margin-bottom: 8px;">VERIFIED EMPIRICAL BENCHMARK WINS</div>
+          <h3>Head-to-Head: Qwen3.8-27B TURBO vs. Claude Opus 4.6 Max</h3>
+          <p style="margin-bottom: 16px;">
+            Evaluated under the official Claude Code evaluation harness (256K / 1M context windows, temperature=1.0, top_p=0.95):
+          </p>
+          <div style="overflow-x: auto;">
+            <table class="mono" style="width: 100%; border-collapse: collapse; font-size: 12px; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border-hl); color: var(--fg);">
+                  <th style="padding: 8px 12px;">Capability Area</th>
+                  <th style="padding: 8px 12px;">Benchmark Suite</th>
+                  <th style="padding: 8px 12px; color: var(--rose);">Qwen3.8-27B TURBO</th>
+                  <th style="padding: 8px 12px;">Claude Opus 4.6 Max</th>
+                  <th style="padding: 8px 12px; color: #10b981;">Win Margin</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid var(--border);">
+                  <td style="padding: 8px 12px;">Agentic Coding</td>
+                  <td style="padding: 8px 12px;">SWE-bench Pro</td>
+                  <td style="padding: 8px 12px; font-weight: bold; color: var(--rose);">61.7%</td>
+                  <td style="padding: 8px 12px;">53.4%</td>
+                  <td style="padding: 8px 12px; font-weight: bold; color: #10b981;">+8.3%</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border);">
+                  <td style="padding: 8px 12px;">Competitive Coding</td>
+                  <td style="padding: 8px 12px;">LiveCodeBench v6</td>
+                  <td style="padding: 8px 12px; font-weight: bold; color: var(--rose);">90.3%</td>
+                  <td style="padding: 8px 12px;">88.8%</td>
+                  <td style="padding: 8px 12px; font-weight: bold; color: #10b981;">+1.5%</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border);">
+                  <td style="padding: 8px 12px;">Software Engineering</td>
+                  <td style="padding: 8px 12px;">QwenSWEBench</td>
+                  <td style="padding: 8px 12px; font-weight: bold; color: var(--rose);">79.0%</td>
+                  <td style="padding: 8px 12px;">63.8%</td>
+                  <td style="padding: 8px 12px; font-weight: bold; color: #10b981;">+15.2%</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border);">
+                  <td style="padding: 8px 12px;">Computer Use (OS)</td>
+                  <td style="padding: 8px 12px;">OSWorld-Verified</td>
+                  <td style="padding: 8px 12px; font-weight: bold; color: var(--rose);">84.3%</td>
+                  <td style="padding: 8px 12px;">72.7%</td>
+                  <td style="padding: 8px 12px; font-weight: bold; color: #10b981;">+11.6%</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border);">
+                  <td style="padding: 8px 12px;">Mobile OS Control</td>
+                  <td style="padding: 8px 12px;">AndroidWorld</td>
+                  <td style="padding: 8px 12px; font-weight: bold; color: var(--rose);">81.9%</td>
+                  <td style="padding: 8px 12px;">62.0%</td>
+                  <td style="padding: 8px 12px; font-weight: bold; color: #10b981;">+19.9%</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border);">
+                  <td style="padding: 8px 12px;">Instruction Following</td>
+                  <td style="padding: 8px 12px;">IFBench</td>
+                  <td style="padding: 8px 12px; font-weight: bold; color: var(--rose);">79.5%</td>
+                  <td style="padding: 8px 12px;">62.5%</td>
+                  <td style="padding: 8px 12px; font-weight: bold; color: #10b981;">+17.0%</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 12px;">Long-Horizon Work</td>
+                  <td style="padding: 8px 12px;">CoWorkBench</td>
+                  <td style="padding: 8px 12px; font-weight: bold; color: var(--rose);">70.7%</td>
+                  <td style="padding: 8px 12px;">68.2%</td>
+                  <td style="padding: 8px 12px; font-weight: bold; color: #10b981;">+2.5%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
