@@ -1,110 +1,103 @@
 ---
 title: "Quantized Models & Anvil Quickstart"
-description: "Step-by-step recipes for pulling and running Solstice quantized checkpoints with the Anvil CLI and Google TurboQuant KV cache compression."
+description: "Step-by-step recipes for pulling and running Solstice quantized checkpoints with the Anvil CLI, 1,048,576 YaRN scaling, Multi-Token Prediction (MTP), and Google TurboQuant KV cache compression."
 category: "models"
 order: 2
-lastUpdated: 2026-08-31
+lastUpdated: 2026-09-02
 githubUrl: "https://github.com/Solstice-Labs/anvil"
 specs:
-  "Default Precision": "6-bit MLX / Q8_0 GGUF"
+  "Default Precision": "NVFP4 / MXFP4 / oMLX Mixed (oQ8e, oQ6e, oQ4e) / Q8_0 GGUF"
   "Inference Engine": "Anvil CLI (anvil 0.8.6+)"
   "Hugging Face Org": "Solstice-AI"
-  "Context Compression": "262k Context in ~4 GB VRAM"
+  "Context Capacity": "1,048,576 Tokens (2^20) Native YaRN"
+  "KV Cache Compression": "Google TurboQuant (~12–18 GB for 1M Tokens)"
 supportedFormats:
-  - "Anvil CLI (anvil run / anvil pull)"
+  - "Anvil CLI (anvil run / anvil pull / anvil serve)"
   - "TurboQuant Presets (turbo4 / turbo3 / turbo2)"
-  - "Apple MLX (Fused Metal)"
-  - "vLLM / PyTorch"
+  - "NVIDIA Blackwell NVFP4 & OCP MXFP4"
+  - "Apple MLX Mixed-Precision (oQ8e, oQ6e, oQ4e)"
+  - "llama.cpp GGUF with mmproj-BF16 Multimodal Projectors"
 ---
 
 ## Available Model Hub Checkpoints
 
 All Solstice-distilled models and quantizations are published directly under the official [`Solstice-AI`](https://huggingface.co/Solstice-AI) organization on Hugging Face:
 
-| Model Identifier | Base Architecture | Format / Precision | Target Hardware | Downloads |
-| :--- | :--- | :--- | :--- | :--- |
-| **`SolsticeAI/Qwen3.8-27B-Uncensored-mlx-6Bit`** | Qwen 3.8 27B | 6-bit MLX | Apple Silicon (M-Series) | 790 |
-| **`Solstice-AI/Qwen3.8-27B-Cold-Fusion-GAIN-V1.1-mlx-6Bit`** | Qwen 3.8 27B | 6-bit MLX | Apple Silicon (M-Series) | 324 |
-| **`Solstice-AI/Huihui-Qwen3.6-35B-A3B-Claude-4.7-Opus-abliterated-Q8_0-GGUF`** | Qwen 3.6 35B | Q8_0 GGUF | Anvil (CUDA / Metal) | 100 |
-| **`Solstice-AI/ThinkingCap-Qwen3.6-27B-mlx-6Bit`** | Qwen 3.6 27B | 6-bit MLX | Apple Silicon (M-Series) | 79 |
-| **`Solstice-AI/Qwopus3.6-27B-Coder-mlx-6Bit`** | Qwen 3.6 27B | 6-bit MLX | Apple Silicon (M-Series) | 48 |
-| **`Solstice-AI/Athena-27B-UltraEfficient`** | Athena 27B | Native PyTorch | vLLM / SGLang | 23 |
+| Model Identifier | Format / Precision | Native Context | Key Features | Target Hardware |
+| :--- | :--- | :---: | :--- | :--- |
+| **[`...-NVFP4-1M`](https://huggingface.co/Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-NVFP4-1M)** | Blackwell NVFP4 | **1,048,576 ($2^{20}$)** | MTP Speculative Heads + mmproj-BF16 | RTX 4090 / 5090 / L40S |
+| **[`...-NVFP4`](https://huggingface.co/Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-NVFP4)** | Blackwell NVFP4 | 262,144 ($2^{18}$) | MTP Speculative Heads + mmproj-BF16 | RTX 4090 / A10G |
+| **[`...-MXFP4-1M`](https://huggingface.co/Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-MXFP4-1M)** | OCP MXFP4 | **1,048,576 ($2^{20}$)** | MTP Speculative Heads + mmproj-BF16 | Universal 24GB+ GPU |
+| **[`...-MXFP4`](https://huggingface.co/Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-MXFP4)** | OCP MXFP4 | 262,144 ($2^{18}$) | MTP Speculative Heads + mmproj-BF16 | Universal 24GB+ GPU |
+| **[`...-mlx-oQ8e-1M`](https://huggingface.co/Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-mlx-oQ8e-1M)** | MLX 8-Bit Mixed | **1,048,576 ($2^{20}$)** | Metal MTP + Vision | Apple Silicon (36GB+ RAM) |
+| **[`...-mlx-oQ8e`](https://huggingface.co/Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-mlx-oQ8e)** | MLX 8-Bit Mixed | 262,144 ($2^{18}$) | Metal MTP + Vision | Apple Silicon (36GB+ RAM) |
+| **[`...-mlx-oQ6e-1M`](https://huggingface.co/Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-mlx-oQ6e-1M)** | MLX 6-Bit Mixed | **1,048,576 ($2^{20}$)** | Metal MTP + Vision | Apple Silicon (32GB+ RAM) |
+| **[`...-mlx-oQ6e`](https://huggingface.co/Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-mlx-oQ6e)** | MLX 6-Bit Mixed | 262,144 ($2^{18}$) | Metal MTP + Vision | Apple Silicon (32GB+ RAM) |
+| **[`...-mlx-oQ4e-1M`](https://huggingface.co/Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-mlx-oQ4e-1M)** | MLX 4-Bit Mixed | **1,048,576 ($2^{20}$)** | 2.20x Speed + Vision | Apple Silicon (16GB–24GB RAM) |
+| **[`...-mlx-oQ4e`](https://huggingface.co/Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-mlx-oQ4e)** | MLX 4-Bit Mixed | 262,144 ($2^{18}$) | 2.20x Speed + Vision | Apple Silicon (16GB–24GB RAM) |
+| **[`...-GGUF-UltraOptimised`](https://huggingface.co/Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-GGUF-UltraOptimised)** | GGUF Matrix (424GB) | 262,144 ($2^{18}$) | mmproj-BF16 + DiMatrix MTP | CPU / CUDA / Metal |
 
 ---
 
-## 1. Running Apple Silicon Checkpoints (MLX)
+## 1. Running Anvil (`anvil`) with TurboQuant & 1M Context
 
-For M-series Macs (M1/M2/M3/M4 Pro/Max/Ultra), run quantized 6-bit checkpoints with native unified memory bandwidth:
+[**Anvil**](https://github.com/Solstice-Labs/anvil) is Solstice Labs' terminal-first in-process runtime. It integrates **Google TurboQuant (FWHT rotation)** and native **YaRN 1,048,576 token context**:
 
-### Quick CLI Generation
+```
+1,048,576 Token KV Cache Footprint (Qwen 3.8):
+Standard FP16 KV Cache:       88.4 GB VRAM  (Requires 2x A100 80GB)
+Anvil TurboQuant (turbo4):     18.2 GB VRAM  (4.8x compression)
+Anvil TurboQuant (turbo3):     12.4 GB VRAM  (7.1x compression, <1% delta)
+Anvil TurboQuant (turbo2):     10.2 GB VRAM  (8.6x compression)
+```
+
+### Install Anvil
+
+```bash
+curl -fsSL https://anvil-llm.github.io/anvil/install.sh | sh
+```
+
+### Pull and Execute Instant 1M Context Session
+
+```bash
+# Pull model into local registry
+anvil pull hf:Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-NVFP4-1M
+
+# Run interactive 1,048,576 session with TurboQuant 3-bit KV cache compression
+anvil run hf:Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-NVFP4-1M \
+  --ctx 1048576 \
+  --type-k turbo4 \
+  --type-v turbo3
+
+# Serve OpenAI-compatible API on port 8080
+anvil serve --port 8080
+```
+
+---
+
+## 2. Running Apple Silicon Checkpoints (MLX)
+
+For M-series Macs (M1/M2/M3/M4/M5), run quantized mixed-precision checkpoints with hardware-accelerated **Multi-Token Prediction (MTP)**:
 
 ```bash
 # Install MLX LM runtime
 pip install mlx-lm
 
-# Run Qwen 3.8 Cold-Fusion GAIN checkpoint
+# Run 4-bit mixed precision (fits in 17 GB RAM, runs at 2.20x speed)
 mlx_lm.generate \
-  --model Solstice-AI/Qwen3.8-27B-Cold-Fusion-GAIN-V1.1-mlx-6Bit \
-  --prompt "Write an optimized concurrent task scheduler in Rust." \
-  --max-tokens 1024 \
-  --temp 0.2
-```
-
-### Python API Integration
-
-```python
-from mlx_lm import load, generate
-
-model, tokenizer = load("Solstice-AI/Qwen3.8-27B-Cold-Fusion-GAIN-V1.1-mlx-6Bit")
-
-response = generate(
-    model,
-    tokenizer,
-    prompt="Explain the core mechanism of multi-teacher distillation in LLMs.",
-    max_tokens=1024,
-    verbose=True
-)
+  --model Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-mlx-oQ4e-1M \
+  --prompt "Analyze this full repository architecture and verify concurrent safety." \
+  --max-tokens 1024
 ```
 
 ---
 
-## 2. Running Anvil (`anvil`) with TurboQuant
+## 3. Multimodal Image & Video Execution
 
-**Anvil (`anvil`)** is Solstice Labs' native inference CLI. It integrates **Google TurboQuant (FWHT rotation)** to compress large context windows (up to 262,144 tokens) into consumer GPU VRAM.
-
-```
-262,144 Token Context (Qwen 3.8 / Huihui 35B)
-Standard FP16 KV Cache:     18.6 GB VRAM  (OOM on 24GB GPUs)
-Anvil TurboQuant (turbo3):   4.1 GB VRAM  (Fits comfortably in single GPU)
-Anvil TurboQuant (turbo2):   2.8 GB VRAM  (Extreme long-context density)
-```
-
-### Pulling Models Directly from Hugging Face
+Load the included **`mmproj-BF16.gguf`** projector to process high-resolution images and spatial-temporal video frames:
 
 ```bash
-# Pull Solstice GGUF checkpoint into local Anvil registry
-anvil pull hf:Solstice-AI/Huihui-Qwen3.6-35B-A3B-Claude-4.7-Opus-abliterated-Q8_0-GGUF
-```
-
-### Single-Word Execution with Anvil
-
-```bash
-# Interactive chat REPL with 262k context and TurboQuant 3-bit KV cache
-anvil run huihui-qwen --ctx 262144 --type-k turbo4 --type-v turbo3
-
-# Save hardware flags into the model registry for instant one-word launch
-anvil run huihui-qwen --ctx 262144 --type-k turbo4 --type-v turbo3 --save
-
-# Now launch with a single word
-anvil huihui-qwen
-
-# Single-shot prompt generation
-anvil run huihui-qwen -p "Analyze this 260k token codebase and verify concurrency safety."
-```
-
-### Serving OpenAI-Compatible API with Anvil
-
-```bash
-# Launch server with multi-slot KV prefix caching
-anvil serve --port 8080 --slots 4
+anvil run hf:Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-GGUF-UltraOptimised:Q4_K_M \
+  --mmproj mmproj-BF16.gguf \
+  --image /path/to/system_diagram.png
 ```

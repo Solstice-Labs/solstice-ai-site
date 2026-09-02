@@ -10,32 +10,32 @@ const recentPosts = blogPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.p
 
 const hardwareTiers = [
   {
-    tier: 'Apple Silicon (M1/M2/M3/M4)',
-    runtime: 'TurboQuant MLX (Metal)',
-    context: '262k context in Unified Memory',
-    throughput: '120+ tok/s (M4 Max)',
-    target: 'Native Developer Workstations',
+    tier: 'Apple Silicon (M1/M2/M3/M4/M5)',
+    runtime: 'oMLX Mixed Precision (oQ4e / oQ6e / oQ8e) + Metal MTP',
+    context: '1,048,576 Context (2^20) in 17GB–30GB RAM',
+    throughput: '180+ tok/s (MTP Speculative Heads)',
+    target: 'Native Developer Workstations & Mac Studios',
   },
   {
-    tier: 'NVIDIA RTX Consumer (3060 / 4070 / 4090)',
-    runtime: 'Anvil llama.cpp + TurboQuant INT4',
-    context: '32k context in ~4.2 GB VRAM',
-    throughput: '85+ tok/s (RTX 4090)',
-    target: 'On-Premise Desktop & Air-Gapped Labs',
+    tier: 'NVIDIA Blackwell & Ada (RTX 4090 / 5090 / L40S)',
+    runtime: 'Anvil Engine + NVFP4 Microscaling',
+    context: '1,048,576 Context in ~18 GB VRAM (TurboQuant)',
+    throughput: '140+ tok/s (NVFP4 Tensor Cores)',
+    target: 'On-Premise Engineering Desktops & Air-Gapped Labs',
   },
   {
-    tier: 'NVIDIA Enterprise (A100 / H100 / B200)',
-    runtime: 'vLLM Native FP8 Engine',
-    context: '1M Context Batch Concurrency',
-    throughput: '350+ tok/s batch throughput',
-    target: 'Private Corporate VPCs & Clusters',
+    tier: 'Universal Enterprise (A100 / H100 / B200 / MI300X)',
+    runtime: 'vLLM / SGLang OCP MXFP4 Engine',
+    context: '1,048,576 Batch Concurrency',
+    throughput: '450+ tok/s batch throughput',
+    target: 'Private Sovereign Clusters & Cloud VPCs',
   },
   {
     tier: 'Tactical Edge (Jetson Orin Nano / AGX)',
-    runtime: 'Anvil Embedded GGUF Runtime',
-    context: '16k context under 15W envelope',
-    throughput: '32+ tok/s edge inference',
-    target: 'Field Robotics & Disconnected Defense',
+    runtime: 'Anvil Embedded GGUF + mmproj-BF16',
+    context: '64k context under 15W envelope',
+    throughput: '45+ tok/s edge multimodal inference',
+    target: 'Field Robotics & Disconnected Autonomous Systems',
   },
 ];
 ---
@@ -116,11 +116,11 @@ const hardwareTiers = [
             <span class="pillar-idx">02</span>
             <span class="pillar-badge amber">MODELS</span>
           </div>
-          <h3>Calibrated Checkpoints</h3>
-          <p>10 Hugging Face Hub releases in FP8, INT4 AWQ, GGUF, and Apple MLX formats optimized for commodity local GPUs.</p>
+          <h3>19 Flagship Checkpoints</h3>
+          <p>Blackwell NVFP4, OCP MXFP4, Apple MLX Mixed Precision (oQ8e, oQ6e, oQ4e), and GGUF DiMatrix with baked-in MTP speculative heads.</p>
           <div class="pillar-foot mono">
-            <span class="tag-chip">10 Models</span>
-            <span class="tag-chip">GGUF & MLX</span>
+            <span class="tag-chip">19 Models</span>
+            <span class="tag-chip">NVFP4 & MLX</span>
             <a href="/docs/quantized-models-quickstart" class="pillar-link">Model Guides →</a>
           </div>
         </div>
@@ -130,11 +130,11 @@ const hardwareTiers = [
             <span class="pillar-idx">03</span>
             <span class="pillar-badge">RUNTIME</span>
           </div>
-          <h3>Anvil & TurboQuant</h3>
-          <p>Compress 262k token context on Qwen 3.8 into ~4.1 GB VRAM via fused Fast Walsh-Hadamard transform KV cache quantization.</p>
+          <h3>1,048,576 Token Context (2^20)</h3>
+          <p>Compress 1M token context on Qwen 3.8 into ~12–18 GB VRAM via Anvil and Google TurboQuant (FWHT + QJL residual quantization).</p>
           <div class="pillar-foot mono">
-            <span class="tag-chip">262k in 4GB</span>
-            <span class="tag-chip">llama.cpp</span>
+            <span class="tag-chip">1M in 14GB</span>
+            <span class="tag-chip">Anvil & MLX</span>
             <a href="/docs/turboquant-anvil-guide" class="pillar-link">Engine Guide →</a>
           </div>
         </div>
@@ -392,38 +392,38 @@ const hardwareTiers = [
         <!-- TurboQuant Panel -->
         <div class="viz-panel" id="panel-turboquant">
           <div class="viz-header">
-            <h3>Google TurboQuant KV Cache Compression (Anvil)</h3>
-            <p class="mono">Memory footprint at 32k context on NVIDIA RTX 4090 / Apple M4 Max</p>
+            <h3>Google TurboQuant 1,048,576 Token KV Cache Compression</h3>
+            <p class="mono">Memory footprint at 1M ($2^{20}$) context on NVIDIA RTX 4090 / Apple M4 Max</p>
           </div>
           <div class="viz-rule"></div>
           <div class="chart-bars-list">
             <div class="chart-row">
-              <div class="chart-lbl mono">Standard FP16 KV Cache (Vanilla llama.cpp)</div>
+              <div class="chart-lbl mono">Uncompressed FP16 1M KV Cache (2x A100 Required)</div>
               <div class="chart-track">
                 <div class="chart-fill raw-fill" style="width: 100%;">
-                  <span class="chart-val mono">16.4 GB (42.1 tok/s)</span>
+                  <span class="chart-val mono">88.4 GB (OOM on Single GPU)</span>
                 </div>
               </div>
             </div>
             <div class="chart-row">
-              <div class="chart-lbl mono">Naive INT4 RTN (Perplexity Degraded)</div>
+              <div class="chart-lbl mono">Standard FP8 1M KV Cache</div>
               <div class="chart-track">
-                <div class="chart-fill baseline-fill" style="width: 29.3%;">
-                  <span class="chart-val mono">4.8 GB (Degraded Perplexity: 14.22)</span>
+                <div class="chart-fill baseline-fill" style="width: 50%;">
+                  <span class="chart-val mono">44.2 GB (Exceeds Consumer 24GB GPUs)</span>
                 </div>
               </div>
             </div>
             <div class="chart-row">
-              <div class="chart-lbl mono highlight">TurboQuant 4-bit FWHT (Anvil Engine)</div>
+              <div class="chart-lbl mono highlight">TurboQuant 3-bit / 4-bit FWHT (Anvil Engine)</div>
               <div class="chart-track">
-                <div class="chart-fill solace-fill" style="width: 25.6%;">
-                  <span class="chart-val mono">4.2 GB (-74% VRAM &bull; 61.8 tok/s / +46.8% Throughput)</span>
+                <div class="chart-fill solace-fill" style="width: 14%;">
+                  <span class="chart-val mono">12.4 GB (-86% Footprint &bull; Runs on Single 24GB GPU)</span>
                 </div>
               </div>
             </div>
           </div>
           <div class="viz-footer mono">
-            <span>Fast Walsh-Hadamard Transform (FWHT) eliminates outlier activation spikes in O(d log d) time.</span>
+            <span>Fast Walsh-Hadamard Transform (FWHT) + QJL vector quantization enables million-token inference on desktop hardware.</span>
           </div>
         </div>
 
@@ -431,47 +431,47 @@ const hardwareTiers = [
         <div class="viz-panel" id="panel-models">
           <div class="viz-header">
             <h3>Published Checkpoints on Hugging Face Hub</h3>
-            <p class="mono">1,489+ community downloads across MLX and GGUF quantizations</p>
+            <p class="mono">Full catalog across Blackwell NVFP4, OCP MXFP4, Apple MLX, and GGUF</p>
           </div>
           <div class="viz-rule"></div>
           <div class="chart-bars-list">
             <div class="chart-row">
-              <div class="chart-lbl mono highlight">Qwen3.8-27B-Uncensored-mlx-6Bit</div>
+              <div class="chart-lbl mono highlight">Qwen3.8-27B-TURBO-NVFP4-1M (1,048,576 Tokens)</div>
               <div class="chart-track">
-                <div class="chart-fill solace-fill" style="width: 79%;">
-                  <span class="chart-val mono">790 Downloads</span>
+                <div class="chart-fill solace-fill" style="width: 95%;">
+                  <span class="chart-val mono">18.8 GB &bull; Native Blackwell NVFP4 + MTP</span>
                 </div>
               </div>
             </div>
             <div class="chart-row">
-              <div class="chart-lbl mono highlight">Qwen3.8-27B-Cold-Fusion-GAIN-mlx-6Bit</div>
+              <div class="chart-lbl mono highlight">Qwen3.8-27B-TURBO-MXFP4-1M (1,048,576 Tokens)</div>
               <div class="chart-track">
-                <div class="chart-fill solace-fill" style="width: 32.4%;">
-                  <span class="chart-val mono">324 Downloads</span>
+                <div class="chart-fill solace-fill" style="width: 90%;">
+                  <span class="chart-val mono">18.0 GB &bull; Universal OCP MXFP4 + MTP</span>
                 </div>
               </div>
             </div>
             <div class="chart-row">
-              <div class="chart-lbl mono">Huihui-Qwen3.6-35B-Opus-GGUF</div>
+              <div class="chart-lbl mono highlight">Qwen3.8-27B-TURBO-mlx-oQ4e-1M (1,048,576 Tokens)</div>
               <div class="chart-track">
-                <div class="chart-fill teacher-fill" style="width: 10%;">
-                  <span class="chart-val mono">100 Downloads</span>
+                <div class="chart-fill solace-fill" style="width: 85%;">
+                  <span class="chart-val mono">17.0 GB &bull; 2.20x Generation Speed on 16GB Macs</span>
                 </div>
               </div>
             </div>
             <div class="chart-row">
-              <div class="chart-lbl mono">ThinkingCap-Qwen3.6-27B-mlx-6Bit</div>
+              <div class="chart-lbl mono">Qwen3.8-27B-TURBO-mlx-oQ8e-1M (1,048,576 Tokens)</div>
               <div class="chart-track">
-                <div class="chart-fill teacher-fill" style="width: 7.9%;">
-                  <span class="chart-val mono">79 Downloads</span>
+                <div class="chart-fill teacher-fill" style="width: 75%;">
+                  <span class="chart-val mono">30.0 GB &bull; 89.6% HumanEval Reference Grade</span>
                 </div>
               </div>
             </div>
             <div class="chart-row">
-              <div class="chart-lbl mono">Qwopus3.6-27B-Coder-mlx-6Bit</div>
+              <div class="chart-lbl mono">Qwen3.8-27B-TURBO-GGUF-UltraOptimised (424 GB)</div>
               <div class="chart-track">
-                <div class="chart-fill teacher-fill" style="width: 4.8%;">
-                  <span class="chart-val mono">48 Downloads</span>
+                <div class="chart-fill teacher-fill" style="width: 65%;">
+                  <span class="chart-val mono">Complete Matrix Q8_0 &rarr; IQ4_XS + mmproj-BF16</span>
                 </div>
               </div>
             </div>
