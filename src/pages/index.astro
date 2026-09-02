@@ -6,7 +6,7 @@ const papers = await getCollection('papers');
 const blogPosts = await getCollection('blog');
 
 const latestPaper = papers.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())[0];
-const recentPosts = blogPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 2);
+const recentPosts = blogPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
 
 const teacherArchitectures = [
   { name: 'GLM 5.2', lab: 'Zhipu AI', focus: 'OpenHands Agent Rollouts & Regen' },
@@ -17,6 +17,37 @@ const teacherArchitectures = [
   { name: 'Qwen 3.8 Max', lab: 'Alibaba Cloud', focus: 'Cross-Architecture Distillation' },
   { name: 'Kimi K3 / Opus 4.7', lab: 'Moonshot / Anthropic', focus: 'Multi-Teacher Reasoning' },
   { name: 'Manus Agents', lab: 'Manus AI', focus: 'Tool Sandbox Execution Logs' },
+];
+
+const hardwareTiers = [
+  {
+    tier: 'Apple Silicon (M1/M2/M3/M4)',
+    runtime: 'TurboQuant MLX (Metal)',
+    context: '262k context in Unified Memory',
+    throughput: '120+ tok/s (M4 Max)',
+    target: 'Native Developer Workstations',
+  },
+  {
+    tier: 'NVIDIA RTX Consumer (3060 / 4070 / 4090)',
+    runtime: 'Anvil llama.cpp + TurboQuant INT4',
+    context: '32k context in ~4.2 GB VRAM',
+    throughput: '85+ tok/s (RTX 4090)',
+    target: 'On-Premise Desktop & Air-Gapped Labs',
+  },
+  {
+    tier: 'NVIDIA Enterprise (A100 / H100 / B200)',
+    runtime: 'vLLM Native FP8 Engine',
+    context: '1M Context Batch Concurrency',
+    throughput: '350+ tok/s batch throughput',
+    target: 'Private Corporate VPCs & Clusters',
+  },
+  {
+    tier: 'Tactical Edge (Jetson Orin Nano / AGX)',
+    runtime: 'Anvil Embedded GGUF Runtime',
+    context: '16k context under 15W envelope',
+    throughput: '32+ tok/s edge inference',
+    target: 'Field Robotics & Disconnected Defense',
+  },
 ];
 ---
 
@@ -226,7 +257,68 @@ const teacherArchitectures = [
     </div>
   </section>
 
-  <!-- ═══════════════ 3. INTERACTIVE BENCHMARK & DISTILLATION EXPLORER (PRISMML VIZ) ═══════════════ -->
+  <!-- ═══════════════ 3. THE SOVEREIGN ADVANTAGE (ENTERPRISE VALUE GRID) ═══════════════ -->
+  <section class="section border-bottom">
+    <div class="container">
+      <div class="section-head-split">
+        <div>
+          <span class="eyebrow">Enterprise Value</span>
+          <h2>The Sovereign Intelligence Advantage</h2>
+        </div>
+        <p>
+          Why institutional engineering teams, national labs, and frontier researchers build on Solstice instead of rented black-box APIs.
+        </p>
+      </div>
+
+      <div class="advantage-grid-4col">
+        <div class="adv-card">
+          <div class="adv-top mono">
+            <span class="adv-num">01</span>
+            <span class="badge rose">ZERO EGRESS</span>
+          </div>
+          <h3>100% Data Confidentiality</h3>
+          <p>
+            Your prompts, proprietary codebases, patient records, and classified documents never traverse external internet pipes. Models run completely within your air-gapped security perimeter.
+          </p>
+        </div>
+
+        <div class="adv-card">
+          <div class="adv-top mono">
+            <span class="adv-num">02</span>
+            <span class="badge amber">COST CONTROL</span>
+          </div>
+          <h3>85% Lower TCO vs Cloud APIs</h3>
+          <p>
+            Eliminate recurring per-token cloud tolls. Run millions of synthetic reasoning passes, batch embeddings, and agent tool loops on local fixed-cost silicon with zero marginal fee.
+          </p>
+        </div>
+
+        <div class="adv-card">
+          <div class="adv-top mono">
+            <span class="adv-num">03</span>
+            <span class="badge">REPRODUCIBILITY</span>
+          </div>
+          <h3>Deterministic Open Checkpoints</h3>
+          <p>
+            Commercial cloud APIs quietly update, degrade, or deprecate model weights without notice. Solstice delivers fixed, verifiable checkpoints with cryptographic weight hashes for reproducible results.
+          </p>
+        </div>
+
+        <div class="adv-card">
+          <div class="adv-top mono">
+            <span class="adv-num">04</span>
+            <span class="badge rose">HIGH INTEGRITY</span>
+          </div>
+          <h3>Compiler-Verified Corpora</h3>
+          <p>
+            Every single trace in Solace 1.0 Omni passes rigorous compiler syntax execution, AST validation, and formal proof checkers before inclusion, eliminating phantom hallucinations.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 4. INTERACTIVE BENCHMARK & DISTILLATION EXPLORER (PRISMML VIZ) ═══════════════ -->
   <section class="section border-bottom" id="benchmarks-section">
     <div class="container">
       <div class="section-head-split">
@@ -442,7 +534,7 @@ const teacherArchitectures = [
     </div>
   </section>
 
-  <!-- ═══════════════ 4. CORE INFRASTRUCTURE MATRIX ROWS (PRISMML ARCHITECTURE) ═══════════════ -->
+  <!-- ═══════════════ 5. CORE INFRASTRUCTURE MATRIX ROWS (PRISMML ARCHITECTURE) ═══════════════ -->
   <section class="section border-bottom">
     <div class="container">
       <div class="section-head-split">
@@ -531,8 +623,48 @@ const teacherArchitectures = [
     </div>
   </section>
 
-  <!-- ═══════════════ 5. LATEST PUBLICATIONS & NOTES (4-COL PRISMML GRID) ═══════════════ -->
-  <section class="section">
+  <!-- ═══════════════ 6. HARDWARE & COMPATIBILITY MATRIX ═══════════════ -->
+  <section class="section border-bottom">
+    <div class="container">
+      <div class="section-head-split">
+        <div>
+          <span class="eyebrow">Hardware Acceleration</span>
+          <h2>Silicon & Framework Compatibility Matrix</h2>
+        </div>
+        <p>
+          Benchmarked across commodity workstations, Apple Silicon Metal, and enterprise data center GPUs.
+        </p>
+      </div>
+
+      <div class="hardware-grid-list">
+        {hardwareTiers.map((hw, idx) => (
+          <div class="hw-row">
+            <div class="hw-col-idx mono">0{idx + 1}</div>
+            <div class="hw-col-main">
+              <h3>{hw.tier}</h3>
+              <span class="hw-runtime mono">{hw.runtime}</span>
+            </div>
+            <div class="hw-col-meta mono">
+              <div class="hw-meta-item">
+                <span class="hw-lbl">Context:</span>
+                <span class="hw-val">{hw.context}</span>
+              </div>
+              <div class="hw-meta-item">
+                <span class="hw-lbl">Speed:</span>
+                <span class="hw-val highlight">{hw.throughput}</span>
+              </div>
+            </div>
+            <div class="hw-col-tag mono">
+              <span class="tag-chip">{hw.target}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 7. LATEST PUBLICATIONS & NOTES (3-COL PRISMML GRID) ═══════════════ -->
+  <section class="section border-bottom">
     <div class="container">
       <div class="section-head-split">
         <div>
@@ -583,6 +715,43 @@ const teacherArchitectures = [
             </div>
           </article>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 8. ENTERPRISE DEPLOYMENT & COLLABORATION CTA ═══════════════ -->
+  <section class="section" id="enterprise-cta">
+    <div class="container">
+      <div class="cta-banner-wrapper">
+        <div class="cta-banner">
+          <div class="cta-content">
+            <span class="eyebrow">Institutional Access</span>
+            <h2>Deploy Sovereign AI On Your Own Silicon</h2>
+            <p>
+              Whether you are an enterprise seeking air-gapped LLM deployments with zero cloud egress, a bio-pharma lab analyzing clinical genomic datasets, or a research team benchmarking multi-teacher distillation, collaborate with Solstice-AI.
+            </p>
+          </div>
+          <div class="cta-actions">
+            <a href="mailto:contact@solstice-ai.co" class="btn solid">
+              <div class="btn-inner">
+                <span class="btn-text">contact@solstice-ai.co</span>
+                <span class="btn-arrow">→</span>
+              </div>
+            </a>
+            <a href="https://huggingface.co/Solstice-AI" target="_blank" rel="noopener noreferrer" class="btn rose">
+              <div class="btn-inner">
+                <span class="btn-text">Hugging Face Hub</span>
+                <span class="btn-arrow">↗</span>
+              </div>
+            </a>
+            <a href="https://github.com/Solstice-Labs" target="_blank" rel="noopener noreferrer" class="btn">
+              <div class="btn-inner">
+                <span class="btn-text">GitHub</span>
+                <span class="btn-arrow">↗</span>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -931,6 +1100,7 @@ const teacherArchitectures = [
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     border: var(--border);
+    background: var(--negative);
   }
 
   .sol-card {
@@ -1013,6 +1183,61 @@ const teacherArchitectures = [
 
   .sol-list strong {
     color: var(--positive-bold);
+  }
+
+  /* ═══ The Sovereign Advantage 4-Column Grid ═══ */
+  .advantage-grid-4col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border: var(--border);
+    background: var(--negative);
+  }
+
+  .adv-card {
+    padding: 44px 40px;
+    border-right: var(--border);
+    border-bottom: var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: var(--negative);
+    transition: background 0.15s ease;
+  }
+
+  .adv-card:nth-child(2n) {
+    border-right: none;
+  }
+
+  .adv-card:nth-last-child(-n+2) {
+    border-bottom: none;
+  }
+
+  .adv-card:hover {
+    background: rgba(232, 228, 223, 0.02);
+  }
+
+  .adv-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+  }
+
+  .adv-num {
+    color: var(--rose);
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+
+  .adv-card h3 {
+    font-size: 1.35rem;
+    color: var(--positive-bold);
+  }
+
+  .adv-card p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--positive-muted);
   }
 
   /* ═══ Visualizer / Benchmark Styles (PrismML Spec) ═══ */
@@ -1196,7 +1421,89 @@ const teacherArchitectures = [
     text-align: right;
   }
 
-  /* ═══ News & Blog Grid (PrismML 4-Col/3-Col Grid) ═══ */
+  /* ═══ Hardware & Compatibility Matrix ═══ */
+  .hardware-grid-list {
+    display: flex;
+    flex-direction: column;
+    border: var(--border);
+    background: var(--negative);
+  }
+
+  .hw-row {
+    display: grid;
+    grid-template-columns: 48px 1.5fr 2fr 180px;
+    align-items: center;
+    gap: 28px;
+    padding: 32px 36px;
+    border-bottom: var(--border);
+    background: var(--negative);
+    transition: background 0.15s ease;
+  }
+
+  .hw-row:last-child {
+    border-bottom: none;
+  }
+
+  .hw-row:hover {
+    background: rgba(232, 228, 223, 0.02);
+  }
+
+  .hw-col-idx {
+    color: var(--rose);
+    font-weight: 700;
+    font-size: 0.9375rem;
+  }
+
+  .hw-col-main h3 {
+    font-size: 1.15rem;
+    margin-bottom: 4px;
+    color: var(--positive-bold);
+  }
+
+  .hw-runtime {
+    font-size: 0.75rem;
+    color: var(--positive-dim);
+  }
+
+  .hw-col-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.8125rem;
+  }
+
+  .hw-meta-item {
+    display: flex;
+    gap: 8px;
+  }
+
+  .hw-lbl {
+    color: var(--positive-dim);
+  }
+
+  .hw-val {
+    color: var(--positive-muted);
+  }
+
+  .hw-val.highlight {
+    color: var(--rose);
+    font-weight: 600;
+  }
+
+  .hw-col-tag {
+    text-align: right;
+  }
+
+  .hw-col-tag .tag-chip {
+    background: rgba(232, 228, 223, 0.06);
+    border: 1px solid rgba(232, 228, 223, 0.12);
+    padding: 4px 10px;
+    font-size: 0.6875rem;
+    color: var(--positive-muted);
+    border-radius: 2px;
+  }
+
+  /* ═══ News & Blog Grid (PrismML 3-Col Grid) ═══ */
   .news-posts-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1259,6 +1566,52 @@ const teacherArchitectures = [
     font-weight: 600;
   }
 
+  /* ═══ Enterprise CTA Banner ═══ */
+  .cta-banner-wrapper {
+    border: var(--border);
+    background: repeating-linear-gradient(
+      -58deg,
+      rgba(206, 190, 190, 0.05) 0 1px,
+      transparent 1px 12px
+    );
+    border-top-left-radius: 12px 18px;
+    border-bottom-right-radius: 12px 18px;
+    padding: 64px 56px;
+  }
+
+  .cta-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+
+  .cta-content {
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .cta-content h2 {
+    font-size: clamp(1.85rem, 3vw, 2.5rem);
+    color: var(--positive-bold);
+  }
+
+  .cta-content p {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--positive-muted);
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 220px;
+  }
+
   /* ═══ Mobile Responsive ═══ */
   @media (max-width: 960px) {
     .hero-split-grid {
@@ -1293,6 +1646,25 @@ const teacherArchitectures = [
     .sol-card:last-child {
       border-bottom: none;
     }
+    .advantage-grid-4col {
+      grid-template-columns: 1fr;
+    }
+    .adv-card {
+      border-right: none;
+      border-bottom: var(--border);
+      padding: 28px 20px;
+    }
+    .adv-card:last-child {
+      border-bottom: none;
+    }
+    .hw-row {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      padding: 24px 20px;
+    }
+    .hw-col-tag {
+      text-align: left;
+    }
     .arch-row {
       grid-template-columns: 40px 1fr;
       padding: 24px 20px;
@@ -1311,6 +1683,12 @@ const teacherArchitectures = [
     .chart-row {
       grid-template-columns: 1fr;
       gap: 8px;
+    }
+    .viz-tab-bar {
+      grid-template-columns: 1fr 1fr;
+    }
+    .cta-banner-wrapper {
+      padding: 36px 24px;
     }
   }
 </style>
