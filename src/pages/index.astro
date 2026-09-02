@@ -8,17 +8,6 @@ const blogPosts = await getCollection('blog');
 const latestPaper = papers.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())[0];
 const recentPosts = blogPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
 
-const teacherArchitectures = [
-  { name: 'GLM 5.2', lab: 'Zhipu AI', focus: 'OpenHands Agent Rollouts & Regen' },
-  { name: 'Claude Fable 5', lab: 'Anthropic', focus: 'Agentic Coding & CoT Traces' },
-  { name: 'GPT-5.6 Sol', lab: 'OpenAI', focus: 'Coding & ARC-AGI3 Challenges' },
-  { name: 'GPT-5.5 Codex', lab: 'OpenAI', focus: 'Code Specialization Streams' },
-  { name: 'DeepSeek V4 Pro', lab: 'DeepSeek', focus: '200K Math/STEM & SWE-bench' },
-  { name: 'Qwen 3.8 Max', lab: 'Alibaba Cloud', focus: 'Cross-Architecture Distillation' },
-  { name: 'Kimi K3 / Opus 4.7', lab: 'Moonshot / Anthropic', focus: 'Multi-Teacher Reasoning' },
-  { name: 'Manus Agents', lab: 'Manus AI', focus: 'Tool Sandbox Execution Logs' },
-];
-
 const hardwareTiers = [
   {
     tier: 'Apple Silicon (M1/M2/M3/M4)',
@@ -91,39 +80,42 @@ const hardwareTiers = [
             </div>
           </div>
 
-          <!-- Quick Anvil Terminal Launcher -->
-          <div class="hero-quick-terminal mono">
-            <div class="term-bar">
-              <span class="term-title">ANVIL TURBOQUANT CLI</span>
-              <span class="term-tag">262K CTX IN 4.1 GB</span>
+          <!-- Hero Metrics Bar -->
+          <div class="hero-stats-row mono">
+            <div class="hero-stat">
+              <span class="stat-num">12.59M</span>
+              <span class="stat-lbl">Verified Traces</span>
             </div>
-            <div class="term-code">
-              <span class="term-prompt">$</span>
-              <span class="term-cmd">anvil run huihui-qwen --ctx 262144 --type-k turbo4 --type-v turbo3</span>
+            <div class="hero-stat">
+              <span class="stat-num">262k</span>
+              <span class="stat-lbl">Context in 4.1GB</span>
+            </div>
+            <div class="hero-stat">
+              <span class="stat-num">100%</span>
+              <span class="stat-lbl">Air-Gapped Sovereign</span>
             </div>
           </div>
         </div>
 
-        <!-- Right Hero Column (Interactive Distillation Pipeline Diagram) -->
+        <!-- Right Hero Column (Anvil Runtime Console) -->
         <div class="hero-right-col">
-          <div class="pipeline-visual-wrapper">
-            <div class="pipeline-title-bar mono">
-              <span>MULTI-TEACHER CONSENSUS PIPELINE</span>
-              <span class="live-dot">&bull; 60 SOURCES AUDITED</span>
+          <div class="anvil-console-wrapper">
+            <div class="anvil-console-header mono">
+              <div class="console-title-group">
+                <span class="console-dot-live"></span>
+                <span class="console-title">ANVIL INFERENCE RUNTIME</span>
+              </div>
+              <span class="console-ver">v0.8.6 &bull; TURBOQUANT FWHT</span>
             </div>
 
-            <div class="teachers-matrix-list">
-              {teacherArchitectures.map((teacher, index) => (
-                <div class="teacher-matrix-row">
-                  <div class="t-col-idx mono">0{index + 1}</div>
-                  <div class="t-col-name">
-                    <span class="t-name">{teacher.name}</span>
-                    <span class="t-lab mono">{teacher.lab}</span>
-                  </div>
-                  <div class="t-col-focus mono">{teacher.focus}</div>
-                  <div class="t-col-status mono">VERIFIED</div>
-                </div>
-              ))}
+            <div class="anvil-console-body mono">
+              <div class="c-line"><span class="c-prompt">$</span> <span class="c-cmd">anvil run solstice-ai/qwen-35b-reasoning --ctx 262144 --quant turbo4</span></div>
+              <div class="c-line c-dim">[anvil::init] Loading Qwen-35B-Reasoning into Apple MLX Unified RAM...</div>
+              <div class="c-line c-dim">[anvil::fwht] Applying Fast Walsh-Hadamard Transform (FWHT) rotation...</div>
+              <div class="c-line c-rose">[anvil::memory] KV cache memory reduced from 16.4 GB &rarr; 4.18 GB (-74.5%)</div>
+              <div class="c-line c-green">[anvil::speculative] Gemma-4 MTP speculative draft engine active (+46.8% tok/s)</div>
+              <div class="c-line c-dim">[anvil::server] Air-gapped socket live on /tmp/solstice.sock</div>
+              <div class="c-line c-bold">[anvil::status] 124.6 tok/s &bull; 0% cloud egress &bull; 100% deterministic</div>
             </div>
           </div>
 
@@ -131,7 +123,7 @@ const hardwareTiers = [
           <div class="attributions-strip mono">
             <div class="attr-label">Supported Frameworks & Environments:</div>
             <div class="attr-items">
-              <span>Anvil (llama.cpp TurboQuant)</span>
+              <span>Anvil (llama.cpp)</span>
               <span>&bull;</span>
               <span>TurboQuant MLX (Metal)</span>
               <span>&bull;</span>
@@ -847,51 +839,32 @@ const hardwareTiers = [
     margin-top: 4px;
   }
 
-  /* Quick Anvil Terminal */
-  .hero-quick-terminal {
-    background: #12161c;
-    border: var(--border);
-    border-top-left-radius: 8px 12px;
-    border-bottom-right-radius: 8px 12px;
-    padding: 18px 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  /* Hero Stats Row */
+  .hero-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    border-top: 1px solid rgba(232, 228, 223, 0.12);
+    padding-top: 24px;
     margin-top: auto;
   }
 
-  .term-bar {
+  .hero-stat {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 0.6875rem;
+    flex-direction: column;
+    gap: 4px;
   }
 
-  .term-title {
-    color: var(--rose);
+  .stat-num {
+    font-size: 1.4rem;
     font-weight: 700;
-  }
-
-  .term-tag {
-    color: var(--positive-dim);
-  }
-
-  .term-code {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.8125rem;
     color: var(--positive-bold);
-    overflow-x: auto;
   }
 
-  .term-prompt {
-    color: var(--rose);
-    font-weight: 700;
-  }
-
-  .term-cmd {
-    white-space: nowrap;
+  .stat-lbl {
+    font-size: 0.6875rem;
+    color: var(--positive-dim);
+    letter-spacing: 0.04em;
   }
 
   /* Right Hero Column */
@@ -901,77 +874,98 @@ const hardwareTiers = [
     flex-direction: column;
   }
 
-  .pipeline-visual-wrapper {
-    padding: 44px 36px;
+  .anvil-console-wrapper {
+    padding: 40px 36px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 18px;
+    flex: 1;
   }
 
-  .pipeline-title-bar {
+  .anvil-console-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 0.6875rem;
     color: var(--positive-dim);
     letter-spacing: 0.06em;
-    padding-bottom: 8px;
+    padding-bottom: 12px;
     border-bottom: 1px solid rgba(232, 228, 223, 0.12);
   }
 
-  .live-dot {
-    color: var(--accent-green);
+  .console-title-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
-  .teachers-matrix-list {
+  .console-dot-live {
+    width: 6px;
+    height: 6px;
+    background: var(--accent-green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent-green);
+  }
+
+  .console-title {
+    font-weight: 700;
+    color: var(--positive-bold);
+  }
+
+  .console-ver {
+    color: var(--rose);
+  }
+
+  .anvil-console-body {
+    background: #0d1015;
+    border: 1px solid rgba(232, 228, 223, 0.1);
+    border-radius: 4px;
+    padding: 22px 20px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 10px;
+    font-size: 0.8125rem;
+    line-height: 1.6;
   }
 
-  .teacher-matrix-row {
-    display: grid;
-    grid-template-columns: 32px 1fr 1.3fr 70px;
-    align-items: center;
-    gap: 12px;
-    padding: 7px 12px;
-    background: rgba(232, 228, 223, 0.02);
-    border: 1px solid rgba(232, 228, 223, 0.06);
-    border-radius: 2px;
-    font-size: 0.75rem;
+  .c-line {
+    white-space: pre-wrap;
+    word-break: break-all;
   }
 
-  .t-col-idx {
+  .c-prompt {
     color: var(--rose);
     font-weight: 700;
   }
 
-  .t-col-name {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .t-name {
-    font-weight: 600;
+  .c-cmd {
     color: var(--positive-bold);
+    font-weight: 600;
   }
 
-  .t-lab {
-    font-size: 0.6875rem;
+  .c-dim {
     color: var(--positive-dim);
+    font-size: 0.75rem;
   }
 
-  .t-col-focus {
-    color: var(--positive-muted);
-    font-size: 0.6875rem;
+  .c-rose {
+    color: var(--rose);
+    font-size: 0.75rem;
+    font-weight: 600;
   }
 
-  .t-col-status {
-    font-size: 0.625rem;
-    font-weight: 700;
+  .c-green {
     color: var(--accent-green);
-    text-align: right;
+    font-size: 0.75rem;
+  }
+
+  .c-bold {
+    color: var(--positive-bold);
+    font-weight: 600;
+    font-size: 0.75rem;
+    border-top: 1px solid rgba(232, 228, 223, 0.08);
+    padding-top: 8px;
+    margin-top: 4px;
   }
 
   .attributions-strip {
