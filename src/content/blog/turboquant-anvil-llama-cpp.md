@@ -40,9 +40,9 @@ Raw KV Tensor ──► FWHT Rotation ──► Lloyd-Max Quantizer ──► 3-
 
 ---
 
-### Enter Anvil (`anvil-llama-turbo`)
+### Enter Anvil (`anvil`)
 
-To bring TurboQuant into production local inference workflows, Solstice developed **Anvil** ([`gondaliyashreyan1/anvil-llama-turbo`](https://github.com/gondaliyashreyan1/anvil-llama-turbo)), featuring:
+To bring TurboQuant into production local inference workflows, Solstice developed **Anvil** ([`Solstice-Labs/anvil`](https://github.com/Solstice-Labs/anvil)), featuring:
 
 * **Fused WHT Rotations in GGML:** SIMD-accelerated butterfly kernels for AVX-512, CUDA, and Apple Metal.
 * **Gemma 4 Multi-Token Prediction (MTP):** Speculative multi-token verification trees.

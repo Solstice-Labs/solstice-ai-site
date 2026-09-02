@@ -4,13 +4,13 @@ description: "Deploying Google TurboQuant FWHT-rotated KV cache compression, sin
 category: "tooling"
 order: 2
 lastUpdated: 2026-08-31
-githubUrl: "https://github.com/gondaliyashreyan1/anvil-llama-turbo"
+githubUrl: "https://github.com/Solstice-Labs/anvil"
 specs:
   "Upstream Algorithm": "Google TurboQuant (FWHT + QJL)"
   "Compression Factor": "4.3x–6.4x KV Cache Reduction"
   "Context Capacity": "262k Context in ~4 GB VRAM"
   "CLI Interface": "anvil run <model> / anvil <model>"
-  "Official Repository": "gondaliyashreyan1/anvil-llama-turbo"
+  "Official Repository": "Solstice-Labs/anvil"
 supportedFormats:
   - "Anvil CLI (anvil run / anvil pull)"
   - "TurboQuant Presets (turbo4 / turbo3 / turbo2)"
@@ -22,7 +22,7 @@ supportedFormats:
 
 As frontier language models scale to massive context windows (32k–262k+ tokens), the Key-Value (KV) cache becomes the primary memory bottleneck. **Google TurboQuant (TQ)** solves this by rotating high-dimensional activation vectors using Fast Walsh-Hadamard Transforms (FWHT), eliminating outlier activation spikes without requiring expensive retraining.
 
-**Anvil ([`gondaliyashreyan1/anvil-llama-turbo`](https://github.com/gondaliyashreyan1/anvil-llama-turbo))** is the dedicated inference engine and model management CLI:
+**Anvil ([`Solstice-Labs/anvil`](https://github.com/Solstice-Labs/anvil))** is the dedicated inference engine and model management CLI:
 1. **TurboQuant WHT Rotation:** Fast Walsh-Hadamard Transform ($O(d \log d)$) for **~4.3× to 6.4× KV cache compression** with backend-native kernels (`TurboFlash` on Metal, CUDA, Vulkan, HIP).
 2. **Single-Word Launch:** Run any registered checkpoint instantly (`anvil <model>` or `anvil run <model>`).
 3. **Speculative Decoding:** Integrated NextN draft reuse and Gemma 4 Multi-Token Prediction (MTP).

@@ -4,7 +4,7 @@ description: "Step-by-step recipes for pulling and running Solstice quantized ch
 category: "models"
 order: 2
 lastUpdated: 2026-08-31
-githubUrl: "https://github.com/gondaliyashreyan1/anvil-llama-turbo"
+githubUrl: "https://github.com/Solstice-Labs/anvil"
 specs:
   "Default Precision": "6-bit MLX / Q8_0 GGUF"
   "Inference Engine": "Anvil CLI (anvil 0.8.6+)"
