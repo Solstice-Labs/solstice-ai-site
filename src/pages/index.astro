@@ -738,19 +738,25 @@ const hardwareTiers = [
     flex-direction: column;
     border: var(--border);
     background: var(--negative);
+    text-align: center;
+    align-items: center;
   }
 
   .hero-intro-box {
-    padding: 88px 72px 64px;
+    padding: 96px 48px 80px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
     gap: 28px;
-    max-width: 960px;
+    max-width: 1000px;
+    margin: 0 auto;
   }
 
   .hero-eyebrow {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     font-size: 0.8125rem;
     letter-spacing: 0.08em;
@@ -771,6 +777,7 @@ const hardwareTiers = [
     line-height: 1.05;
     letter-spacing: -0.04em;
     font-weight: 700;
+    text-align: center;
   }
 
   .hero-hl {
@@ -782,22 +789,26 @@ const hardwareTiers = [
     line-height: 1.45;
     font-weight: 500;
     color: var(--positive-muted);
+    text-align: center;
+    max-width: 720px;
   }
 
   .hero-btn-row {
     display: flex;
     gap: 14px;
     flex-wrap: wrap;
+    justify-content: center;
     margin-top: 8px;
   }
 
   .attributions-strip {
+    width: 100%;
     border-top: var(--border);
-    padding: 18px 72px;
+    padding: 18px 48px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+    justify-content: center;
+    gap: 24px;
     font-size: 0.75rem;
     color: var(--positive-dim);
     background: var(--negative-dark);
@@ -811,6 +822,7 @@ const hardwareTiers = [
   .attr-items {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
     color: var(--positive-muted);
