@@ -116,11 +116,11 @@ const hardwareTiers = [
             <span class="pillar-idx">02</span>
             <span class="pillar-badge amber">MODELS</span>
           </div>
-          <h3>19 Flagship Checkpoints</h3>
-          <p>Blackwell NVFP4, OCP MXFP4, Apple MLX Mixed Precision (oQ8e, oQ6e, oQ4e), and GGUF DiMatrix with baked-in MTP speculative heads.</p>
+          <h3>21 Flagship Checkpoints</h3>
+          <p>Blackwell NVFP4, OCP MXFP4, AWQ (W4A16 GEMM), Apple MLX Mixed Precision (oQ8e, oQ6e, oQ4e), and GGUF DiMatrix with baked-in MTP speculative heads.</p>
           <div class="pillar-foot mono">
-            <span class="tag-chip">19 Models</span>
-            <span class="tag-chip">NVFP4 & MLX</span>
+            <span class="tag-chip">21 Models</span>
+            <span class="tag-chip">NVFP4, AWQ & MLX</span>
             <a href="/docs/quantized-models-quickstart" class="pillar-link">Model Guides →</a>
           </div>
         </div>
@@ -185,7 +185,7 @@ const hardwareTiers = [
           </p>
           <ul class="sol-list mono">
             <li><span>Context:</span> <strong>1,048,576 Tokens ($2^{20}$) Native</strong></li>
-            <li><span>Formats:</span> <strong>Blackwell NVFP4 &bull; OCP MXFP4 &bull; Apple MLX</strong></li>
+            <li><span>Formats:</span> <strong>NVFP4 &bull; MXFP4 &bull; AWQ (W4A16) &bull; MLX &bull; GGUF</strong></li>
             <li><span>Intelligence:</span> <strong>735 ARC-C (+144 over Qwen 3.8 Base)</strong></li>
             <li><span>Hub Models:</span> <strong><a href="https://huggingface.co/Solstice-AI" target="_blank" rel="noopener noreferrer">Solstice-AI/Qwen3.8-27B-TURBO-1M ↗</a></strong></li>
           </ul>
@@ -575,10 +575,18 @@ const hardwareTiers = [
         <div class="viz-panel" id="panel-models">
           <div class="viz-header">
             <h3>Published Checkpoints on Hugging Face Hub</h3>
-            <p class="mono">Full catalog across Blackwell NVFP4, OCP MXFP4, Apple MLX, and GGUF</p>
+            <p class="mono">Full catalog across Blackwell NVFP4, OCP MXFP4, AWQ (W4A16), Apple MLX, and GGUF</p>
           </div>
           <div class="viz-rule"></div>
           <div class="chart-bars-list">
+            <div class="chart-row">
+              <div class="chart-lbl mono highlight">Qwen3.8-27B-TURBO-AWQ-1M (1,048,576 Tokens)</div>
+              <div class="chart-track">
+                <div class="chart-fill solace-fill" style="width: 95%;">
+                  <span class="chart-val mono">19.8 GB &bull; W4A16 Tensor Core GEMM (vLLM / SGLang) + MTP</span>
+                </div>
+              </div>
+            </div>
             <div class="chart-row">
               <div class="chart-lbl mono highlight">Qwen3.8-27B-TURBO-NVFP4-1M (1,048,576 Tokens)</div>
               <div class="chart-track">

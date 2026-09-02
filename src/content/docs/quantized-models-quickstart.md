@@ -25,6 +25,8 @@ All Solstice-distilled models and quantizations are published directly under the
 
 | Model Identifier | Format / Precision | Native Context | Key Features | Target Hardware |
 | :--- | :--- | :---: | :--- | :--- |
+| **[`...-AWQ-1M`](https://huggingface.co/Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-AWQ-1M)** | AWQ INT4 (W4A16 GEMM) | **1,048,576 ($2^{20}$)** | vLLM / SGLang + MTP + Vision | RTX 3090 / 4090 / A10G / A100 |
+| **[`...-AWQ`](https://huggingface.co/Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-AWQ)** | AWQ INT4 (W4A16 GEMM) | 262,144 ($2^{18}$) | vLLM / SGLang + MTP + Vision | RTX 3090 / 4090 / A10G / A100 |
 | **[`...-NVFP4-1M`](https://huggingface.co/Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-NVFP4-1M)** | Blackwell NVFP4 | **1,048,576 ($2^{20}$)** | MTP Speculative Heads + mmproj-BF16 | RTX 4090 / 5090 / L40S |
 | **[`...-NVFP4`](https://huggingface.co/Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-NVFP4)** | Blackwell NVFP4 | 262,144 ($2^{18}$) | MTP Speculative Heads + mmproj-BF16 | RTX 4090 / A10G |
 | **[`...-MXFP4-1M`](https://huggingface.co/Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-MXFP4-1M)** | OCP MXFP4 | **1,048,576 ($2^{20}$)** | MTP Speculative Heads + mmproj-BF16 | Universal 24GB+ GPU |
@@ -101,3 +103,34 @@ anvil run hf:Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Unc
   --mmproj mmproj-BF16.gguf \
   --image /path/to/system_diagram.png
 ```
+
+---
+
+## 4. Enterprise Serving with vLLM & SGLang (AWQ INT4)
+
+The **`...-AWQ-1M`** and **`...-AWQ`** releases pack weights into high-performance `W4A16 GEMM` format, enabling standard 24GB GPUs (RTX 3090, 4090, A10G, L40S) to achieve maximum Tensor Core throughput in production orchestrators.
+
+### Launch with vLLM
+
+```bash
+# 1. Install vLLM
+pip install vllm
+
+# 2. Serve 1,048,576 YaRN context on a single 24GB GPU
+vllm serve Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-AWQ-1M \
+  --quantization awq \
+  --max-model-len 1048576 \
+  --gpu-memory-utilization 0.95 \
+  --port 8000
+```
+
+### Launch with SGLang
+
+```bash
+# High-throughput RadixAttention prefix caching server
+python -m sglang.launch_server \
+  --model-path Solstice-AI/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NM-DAU-AWQ-1M \
+  --quantization awq \
+  --port 30000
+```
+
