@@ -1022,22 +1022,27 @@ const teacherArchitectures = [
   }
 
   .viz-tab-bar {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     border-bottom: var(--border);
     background: var(--negative-dark);
-    overflow-x: auto;
   }
 
   .viz-tab-btn {
     background: transparent;
     border: none;
     border-right: var(--border);
-    padding: 16px 28px;
+    padding: 16px 20px;
     color: var(--positive-dim);
     font-size: 0.8125rem;
     cursor: pointer;
     white-space: nowrap;
+    text-align: center;
     transition: all 0.15s ease;
+  }
+
+  .viz-tab-btn:last-child {
+    border-right: none;
   }
 
   .viz-tab-btn:hover, .viz-tab-btn.active {
