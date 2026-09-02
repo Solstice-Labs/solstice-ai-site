@@ -45,94 +45,52 @@ const hardwareTiers = [
   <!-- ═══════════════ 1. HERO WRAPPER (PRISMML ARCHITECTURE) ═══════════════ -->
   <section class="section hero-section border-bottom">
     <div class="container">
-      <div class="hero-split-grid">
-        <!-- Left Hero Column -->
-        <div class="hero-left-col">
-          <div class="hero-intro-box">
-            <div class="hero-eyebrow mono">
-              <span class="eyebrow-tag">SOLSTICE-AI</span>
-              <span class="eyebrow-dot">&bull;</span>
-              <span>SOVEREIGN INTELLIGENCE INFRASTRUCTURE</span>
-            </div>
-            <h1>Efficient intelligence.<br/><span class="hero-hl">Built for the real world.</span></h1>
-            <p class="hero-intro-text">
-              Frontier AI for everyone, everywhere.
-            </p>
-            <div class="hero-btn-row">
-              <a href="/docs/quantized-models-quickstart" class="btn solid">
-                <div class="btn-inner">
-                  <span class="btn-text">Explore Models</span>
-                  <span class="btn-arrow">→</span>
-                </div>
-              </a>
-              <a href="https://huggingface.co/Solstice-AI" target="_blank" rel="noopener noreferrer" class="btn rose">
-                <div class="btn-inner">
-                  <span class="btn-text">Hugging Face Hub</span>
-                  <span class="btn-arrow">↗</span>
-                </div>
-              </a>
-              <a href="/company#contact" class="btn">
-                <div class="btn-inner">
-                  <span class="btn-text">Deploy Sovereign</span>
-                  <span class="btn-arrow">→</span>
-                </div>
-              </a>
-            </div>
+      <div class="hero-single-box">
+        <div class="hero-intro-box">
+          <div class="hero-eyebrow mono">
+            <span class="eyebrow-tag">SOLSTICE-AI</span>
+            <span class="eyebrow-dot">&bull;</span>
+            <span>SOVEREIGN INTELLIGENCE INFRASTRUCTURE</span>
           </div>
-
-          <!-- Hero Metrics Bar -->
-          <div class="hero-stats-row mono">
-            <div class="hero-stat">
-              <span class="stat-num">12.59M</span>
-              <span class="stat-lbl">Verified Traces</span>
-            </div>
-            <div class="hero-stat">
-              <span class="stat-num">262k</span>
-              <span class="stat-lbl">Context in 4.1GB</span>
-            </div>
-            <div class="hero-stat">
-              <span class="stat-num">100%</span>
-              <span class="stat-lbl">Air-Gapped Sovereign</span>
-            </div>
+          <h1>Efficient intelligence.<br/><span class="hero-hl">Built for the real world.</span></h1>
+          <p class="hero-intro-text">
+            Frontier AI for everyone, everywhere.
+          </p>
+          <div class="hero-btn-row">
+            <a href="/docs/quantized-models-quickstart" class="btn solid">
+              <div class="btn-inner">
+                <span class="btn-text">Explore Models</span>
+                <span class="btn-arrow">→</span>
+              </div>
+            </a>
+            <a href="https://huggingface.co/Solstice-AI" target="_blank" rel="noopener noreferrer" class="btn rose">
+              <div class="btn-inner">
+                <span class="btn-text">Hugging Face Hub</span>
+                <span class="btn-arrow">↗</span>
+              </div>
+            </a>
+            <a href="/company#contact" class="btn">
+              <div class="btn-inner">
+                <span class="btn-text">Deploy Sovereign</span>
+                <span class="btn-arrow">→</span>
+              </div>
+            </a>
           </div>
         </div>
 
-        <!-- Right Hero Column (Anvil Runtime Console) -->
-        <div class="hero-right-col">
-          <div class="anvil-console-wrapper">
-            <div class="anvil-console-header mono">
-              <div class="console-title-group">
-                <span class="console-dot-live"></span>
-                <span class="console-title">ANVIL INFERENCE RUNTIME</span>
-              </div>
-              <span class="console-ver">v0.8.6 &bull; TURBOQUANT FWHT</span>
-            </div>
-
-            <div class="anvil-console-body mono">
-              <div class="c-line"><span class="c-prompt">$</span> <span class="c-cmd">anvil run solstice-ai/qwen-35b-reasoning --ctx 262144 --quant turbo4</span></div>
-              <div class="c-line c-dim">[anvil::init] Loading Qwen-35B-Reasoning into Apple MLX Unified RAM...</div>
-              <div class="c-line c-dim">[anvil::fwht] Applying Fast Walsh-Hadamard Transform (FWHT) rotation...</div>
-              <div class="c-line c-rose">[anvil::memory] KV cache memory reduced from 16.4 GB &rarr; 4.18 GB (-74.5%)</div>
-              <div class="c-line c-green">[anvil::speculative] Gemma-4 MTP speculative draft engine active (+46.8% tok/s)</div>
-              <div class="c-line c-dim">[anvil::server] Air-gapped socket live on /tmp/solstice.sock</div>
-              <div class="c-line c-bold">[anvil::status] 124.6 tok/s &bull; 0% cloud egress &bull; 100% deterministic</div>
-            </div>
-          </div>
-
-          <!-- Supporter / Lab Attribution Strip -->
-          <div class="attributions-strip mono">
-            <div class="attr-label">Supported Frameworks & Environments:</div>
-            <div class="attr-items">
-              <span>Anvil (llama.cpp)</span>
-              <span>&bull;</span>
-              <span>TurboQuant MLX (Metal)</span>
-              <span>&bull;</span>
-              <span>vLLM (FP8)</span>
-              <span>&bull;</span>
-              <span>Hugging Face TRL</span>
-              <span>&bull;</span>
-              <span>Axolotl</span>
-            </div>
+        <!-- Supporter / Lab Attribution Strip -->
+        <div class="attributions-strip mono">
+          <div class="attr-label">Supported Frameworks & Environments:</div>
+          <div class="attr-items">
+            <span>Anvil (llama.cpp)</span>
+            <span>&bull;</span>
+            <span>TurboQuant MLX (Metal)</span>
+            <span>&bull;</span>
+            <span>vLLM (FP8)</span>
+            <span>&bull;</span>
+            <span>Hugging Face TRL</span>
+            <span>&bull;</span>
+            <span>Axolotl</span>
           </div>
         </div>
       </div>
@@ -774,39 +732,27 @@ const hardwareTiers = [
 </script>
 
 <style>
-  /* ═══ Hero Split Grid (PrismML Top Section) ═══ */
-  .hero-split-grid {
-    display: grid;
-    grid-template-columns: 1.25fr 0.95fr;
-    border: var(--border);
-  }
-
-  .hero-left-col {
-    padding: 72px 56px;
+  /* ═══ Hero Single Box (Centrally Focused Slogan & Lockup) ═══ */
+  .hero-single-box {
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    border-right: var(--border);
+    border: var(--border);
+    background: var(--negative);
   }
 
   .hero-intro-box {
+    padding: 88px 72px 64px;
     display: flex;
     flex-direction: column;
-    gap: 22px;
-  }
-
-  .hero-intro-box h1 {
-    font-size: clamp(2.75rem, 4.8vw, 4.25rem);
-    line-height: 1.08;
-    letter-spacing: -0.035em;
-    font-weight: 700;
+    gap: 28px;
+    max-width: 960px;
   }
 
   .hero-eyebrow {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     letter-spacing: 0.08em;
     color: var(--positive-dim);
   }
@@ -820,164 +766,54 @@ const hardwareTiers = [
     color: var(--positive-dim);
   }
 
+  .hero-intro-box h1 {
+    font-size: clamp(3.2rem, 5.8vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+  }
+
   .hero-hl {
     color: var(--positive-bold);
   }
 
   .hero-intro-text {
-    font-size: 1.25rem;
-    line-height: 1.5;
+    font-size: 1.5rem;
+    line-height: 1.45;
     font-weight: 500;
     color: var(--positive-muted);
-    max-width: 640px;
   }
 
   .hero-btn-row {
     display: flex;
-    gap: 12px;
+    gap: 14px;
     flex-wrap: wrap;
-    margin-top: 4px;
-  }
-
-  /* Hero Stats Row */
-  .hero-stats-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    border-top: 1px solid rgba(232, 228, 223, 0.12);
-    padding-top: 24px;
-    margin-top: auto;
-  }
-
-  .hero-stat {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .stat-num {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--positive-bold);
-  }
-
-  .stat-lbl {
-    font-size: 0.6875rem;
-    color: var(--positive-dim);
-    letter-spacing: 0.04em;
-  }
-
-  /* Right Hero Column */
-  .hero-right-col {
-    background: var(--negative-dark);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .anvil-console-wrapper {
-    padding: 40px 36px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    flex: 1;
-  }
-
-  .anvil-console-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 0.6875rem;
-    color: var(--positive-dim);
-    letter-spacing: 0.06em;
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(232, 228, 223, 0.12);
-  }
-
-  .console-title-group {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .console-dot-live {
-    width: 6px;
-    height: 6px;
-    background: var(--accent-green);
-    border-radius: 50%;
-    box-shadow: 0 0 8px var(--accent-green);
-  }
-
-  .console-title {
-    font-weight: 700;
-    color: var(--positive-bold);
-  }
-
-  .console-ver {
-    color: var(--rose);
-  }
-
-  .anvil-console-body {
-    background: #0d1015;
-    border: 1px solid rgba(232, 228, 223, 0.1);
-    border-radius: 4px;
-    padding: 22px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    font-size: 0.8125rem;
-    line-height: 1.6;
-  }
-
-  .c-line {
-    white-space: pre-wrap;
-    word-break: break-all;
-  }
-
-  .c-prompt {
-    color: var(--rose);
-    font-weight: 700;
-  }
-
-  .c-cmd {
-    color: var(--positive-bold);
-    font-weight: 600;
-  }
-
-  .c-dim {
-    color: var(--positive-dim);
-    font-size: 0.75rem;
-  }
-
-  .c-rose {
-    color: var(--rose);
-    font-size: 0.75rem;
-    font-weight: 600;
-  }
-
-  .c-green {
-    color: var(--accent-green);
-    font-size: 0.75rem;
-  }
-
-  .c-bold {
-    color: var(--positive-bold);
-    font-weight: 600;
-    font-size: 0.75rem;
-    border-top: 1px solid rgba(232, 228, 223, 0.08);
-    padding-top: 8px;
-    margin-top: 4px;
+    margin-top: 8px;
   }
 
   .attributions-strip {
-    margin-top: auto;
     border-top: var(--border);
-    padding: 16px 24px;
+    padding: 18px 72px;
     display: flex;
-    flex-direction: column;
-    gap: 6px;
-    font-size: 0.6875rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 0.75rem;
     color: var(--positive-dim);
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--negative-dark);
+    flex-wrap: wrap;
+  }
+
+  .attr-label {
+    color: var(--positive-dim);
+  }
+
+  .attr-items {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    color: var(--positive-muted);
   }
 
   .attr-label {
@@ -1611,12 +1447,11 @@ const hardwareTiers = [
     .hero-split-grid {
       grid-template-columns: 1fr;
     }
-    .hero-left-col {
-      border-right: none;
-      padding: 36px 20px;
+    .hero-intro-box {
+      padding: 44px 24px 36px;
     }
-    .pipeline-visual-wrapper {
-      padding: 24px 20px;
+    .attributions-strip {
+      padding: 16px 24px;
     }
     .hero-pillars-3col {
       grid-template-columns: 1fr;
