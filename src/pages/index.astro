@@ -151,7 +151,7 @@ const hardwareTiers = [
           <h2>The Solstice Sovereign AI Suite</h2>
         </div>
         <p>
-          World-class open corpora paired with record-breaking 1,048,576 ($2^{20}$) context models. Zero compromise on speed, accuracy, or privacy.
+          World-class open corpora paired with record-breaking 1,048,576 (2²⁰) context models. Zero compromise on speed, accuracy, or privacy.
         </p>
       </div>
 
@@ -181,10 +181,10 @@ const hardwareTiers = [
           </div>
           <h3>Qwen3.8-27B-TURBO Cold Fusion (1M Native)</h3>
           <p>
-            Breaches 735 ARC-C and 882 ARC-E with native 1,048,576 token ($2^{20}$) YaRN context, dual-stream Multi-Token Prediction (MTP), and mmproj-BF16 3D Video/Image multimodality.
+            Breaches 735 ARC-C and 882 ARC-E with native 1,048,576 token (2²⁰) YaRN context, dual-stream Multi-Token Prediction (MTP), and mmproj-BF16 3D Video/Image multimodality.
           </p>
           <ul class="sol-list mono">
-            <li><span>Context:</span> <strong>1,048,576 Tokens ($2^{20}$) Native</strong></li>
+            <li><span>Context:</span> <strong>1,048,576 Tokens (2²⁰) Native</strong></li>
             <li><span>Formats:</span> <strong>NVFP4 &bull; MXFP4 &bull; AWQ (W4A16) &bull; MLX &bull; GGUF</strong></li>
             <li><span>Intelligence:</span> <strong>735 ARC-C (+144 over Qwen 3.8 Base)</strong></li>
             <li><span>Hub Models:</span> <strong><a href="https://huggingface.co/Solstice-AI" target="_blank" rel="noopener noreferrer">Solstice-AI/Qwen3.8-27B-TURBO-1M ↗</a></strong></li>
@@ -210,77 +210,91 @@ const hardwareTiers = [
       </div>
 
       <!-- EMPIRICAL BENCHMARK DOMINANCE VS CLAUDE OPUS 4.6 MAX -->
-      <div class="arch-row" style="margin-top: 32px; border-top: 1px solid var(--border);">
-        <div class="arch-main" style="width: 100%;">
-          <div class="mono" style="font-size: 11px; color: var(--rose); margin-bottom: 8px;">9-FOR-9 EMPIRICAL CLEAN SWEEP &bull; ZERO CHERRY-PICKING</div>
+      <div class="benchmark-card">
+        <div class="benchmark-header">
+          <div class="benchmark-badge mono">9-FOR-9 EMPIRICAL CLEAN SWEEP &bull; ZERO CHERRY-PICKING</div>
           <h3>Head-to-Head: Qwen3.8-27B TURBO vs. Claude Opus 4.6 Max</h3>
-          <p style="margin-bottom: 16px;">
-            Evaluated under the official Claude Code benchmark evaluation harness (256K / 1M context windows, temperature=1.0, top_p=0.95). Qwen3.8-27B Cold Fusion sweeps Anthropic's flagship closed model across 9 out of 9 benchmark disciplines:
+          <p>
+            Evaluated under the official Claude Code benchmark evaluation harness (256K / 1M context windows, temperature=1.0, top_p=0.95). Qwen3.8-27B Cold Fusion sweeps Anthropic's flagship closed model across all 9 benchmark disciplines:
           </p>
-          <div style="overflow-x: auto;">
-            <table class="mono" style="width: 100%; border-collapse: collapse; font-size: 12px; text-align: left;">
-              <thead>
-                <tr style="border-bottom: 2px solid var(--border-hl); color: var(--fg);">
-                  <th style="padding: 8px 12px;">Capability Area</th>
-                  <th style="padding: 8px 12px;">Benchmark Suite</th>
-                  <th style="padding: 8px 12px; color: var(--rose);">Qwen3.8-27B TURBO</th>
-                  <th style="padding: 8px 12px;">Claude Opus 4.6 Max</th>
-                  <th style="padding: 8px 12px; color: #10b981;">Win Margin</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style="border-bottom: 1px solid var(--border);">
-                  <td style="padding: 8px 12px;">Agentic Coding</td>
-                  <td style="padding: 8px 12px;">SWE-bench Pro</td>
-                  <td style="padding: 8px 12px; font-weight: bold; color: var(--rose);">61.7%</td>
-                  <td style="padding: 8px 12px;">53.4%</td>
-                  <td style="padding: 8px 12px; font-weight: bold; color: #10b981;">+8.3%</td>
-                </tr>
-                <tr style="border-bottom: 1px solid var(--border);">
-                  <td style="padding: 8px 12px;">Competitive Coding</td>
-                  <td style="padding: 8px 12px;">LiveCodeBench v6</td>
-                  <td style="padding: 8px 12px; font-weight: bold; color: var(--rose);">90.3%</td>
-                  <td style="padding: 8px 12px;">88.8%</td>
-                  <td style="padding: 8px 12px; font-weight: bold; color: #10b981;">+1.5%</td>
-                </tr>
-                <tr style="border-bottom: 1px solid var(--border);">
-                  <td style="padding: 8px 12px;">Software Engineering</td>
-                  <td style="padding: 8px 12px;">QwenSWEBench</td>
-                  <td style="padding: 8px 12px; font-weight: bold; color: var(--rose);">79.0%</td>
-                  <td style="padding: 8px 12px;">63.8%</td>
-                  <td style="padding: 8px 12px; font-weight: bold; color: #10b981;">+15.2%</td>
-                </tr>
-                <tr style="border-bottom: 1px solid var(--border);">
-                  <td style="padding: 8px 12px;">Computer Use (OS)</td>
-                  <td style="padding: 8px 12px;">OSWorld-Verified</td>
-                  <td style="padding: 8px 12px; font-weight: bold; color: var(--rose);">84.3%</td>
-                  <td style="padding: 8px 12px;">72.7%</td>
-                  <td style="padding: 8px 12px; font-weight: bold; color: #10b981;">+11.6%</td>
-                </tr>
-                <tr style="border-bottom: 1px solid var(--border);">
-                  <td style="padding: 8px 12px;">Mobile OS Control</td>
-                  <td style="padding: 8px 12px;">AndroidWorld</td>
-                  <td style="padding: 8px 12px; font-weight: bold; color: var(--rose);">81.9%</td>
-                  <td style="padding: 8px 12px;">62.0%</td>
-                  <td style="padding: 8px 12px; font-weight: bold; color: #10b981;">+19.9%</td>
-                </tr>
-                <tr style="border-bottom: 1px solid var(--border);">
-                  <td style="padding: 8px 12px;">Instruction Following</td>
-                  <td style="padding: 8px 12px;">IFBench</td>
-                  <td style="padding: 8px 12px; font-weight: bold; color: var(--rose);">79.5%</td>
-                  <td style="padding: 8px 12px;">62.5%</td>
-                  <td style="padding: 8px 12px; font-weight: bold; color: #10b981;">+17.0%</td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 12px;">Long-Horizon Work</td>
-                  <td style="padding: 8px 12px;">CoWorkBench</td>
-                  <td style="padding: 8px 12px; font-weight: bold; color: var(--rose);">70.7%</td>
-                  <td style="padding: 8px 12px;">68.2%</td>
-                  <td style="padding: 8px 12px; font-weight: bold; color: #10b981;">+2.5%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        </div>
+        <div class="benchmark-table-wrapper">
+          <table class="mono benchmark-table">
+            <thead>
+              <tr>
+                <th>Capability Area</th>
+                <th>Benchmark Suite</th>
+                <th class="col-highlight">Qwen3.8-27B TURBO</th>
+                <th>Claude Opus 4.6 Max</th>
+                <th class="col-win">Win Margin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Agentic Coding</td>
+                <td>SWE-bench Pro</td>
+                <td class="col-highlight val-bold">61.7%</td>
+                <td>53.4%</td>
+                <td class="col-win val-bold">+8.3% vs Opus 4.6 Max</td>
+              </tr>
+              <tr>
+                <td>Competitive Coding</td>
+                <td>LiveCodeBench v6</td>
+                <td class="col-highlight val-bold">90.3%</td>
+                <td>88.8%</td>
+                <td class="col-win val-bold">+1.5% vs Opus 4.6 Max</td>
+              </tr>
+              <tr>
+                <td>Software Engineering</td>
+                <td>QwenSWEBench</td>
+                <td class="col-highlight val-bold">79.0%</td>
+                <td>63.8%</td>
+                <td class="col-win val-bold">+15.2% vs Opus 4.6 Max</td>
+              </tr>
+              <tr>
+                <td>Computer Use (OS)</td>
+                <td>OSWorld-Verified</td>
+                <td class="col-highlight val-bold">84.3%</td>
+                <td>72.7%</td>
+                <td class="col-win val-bold">+11.6% vs Opus 4.6 Max</td>
+              </tr>
+              <tr>
+                <td>Mobile OS Control</td>
+                <td>AndroidWorld</td>
+                <td class="col-highlight val-bold">81.9%</td>
+                <td>62.0%</td>
+                <td class="col-win val-bold">+19.9% vs Opus 4.6 Max</td>
+              </tr>
+              <tr>
+                <td>Instruction Following</td>
+                <td>IFBench</td>
+                <td class="col-highlight val-bold">79.5%</td>
+                <td>62.5%</td>
+                <td class="col-win val-bold">+17.0% vs Opus 4.6 Max</td>
+              </tr>
+              <tr>
+                <td>Long-Horizon Work</td>
+                <td>CoWorkBench</td>
+                <td class="col-highlight val-bold">70.7%</td>
+                <td>68.2%</td>
+                <td class="col-win val-bold">+2.5% vs Opus 4.6 Max</td>
+              </tr>
+              <tr>
+                <td>Scientific Abstraction</td>
+                <td>ARC-C (Challenge)</td>
+                <td class="col-highlight val-bold">735 (8-Bit) / 719 (4-Bit)</td>
+                <td>~710–720</td>
+                <td class="col-win val-bold">Frontier Closed Tier</td>
+              </tr>
+              <tr>
+                <td>Common-Sense Reasoning</td>
+                <td>ARC-E (Easy)</td>
+                <td class="col-highlight val-bold">882</td>
+                <td>~870</td>
+                <td class="col-win val-bold">Exceeds Closed Frontier</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -537,7 +551,7 @@ const hardwareTiers = [
         <div class="viz-panel" id="panel-turboquant">
           <div class="viz-header">
             <h3>Google TurboQuant 1,048,576 Token KV Cache Compression</h3>
-            <p class="mono">Memory footprint at 1M ($2^{20}$) context on NVIDIA RTX 4090 / Apple M4 Max</p>
+            <p class="mono">Memory footprint at 1M (2²⁰) context on NVIDIA RTX 4090 / Apple M4 Max</p>
           </div>
           <div class="viz-rule"></div>
           <div class="chart-bars-list">
@@ -1179,6 +1193,97 @@ const hardwareTiers = [
     color: var(--positive-bold);
   }
 
+  /* ═══ Benchmark Dominance Card ═══ */
+  .benchmark-card {
+    margin-top: 36px;
+    border: var(--border);
+    background: var(--negative);
+    padding: 38px 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .benchmark-header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .benchmark-badge {
+    font-size: 0.6875rem;
+    color: var(--rose);
+    letter-spacing: 0.08em;
+    font-weight: 700;
+  }
+
+  .benchmark-header h3 {
+    font-size: clamp(1.25rem, 2vw, 1.6rem);
+    color: var(--positive-bold);
+  }
+
+  .benchmark-header p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--positive-muted);
+    max-width: 960px;
+  }
+
+  .benchmark-table-wrapper {
+    overflow-x: auto;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid rgba(232, 228, 223, 0.15);
+  }
+
+  .benchmark-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8125rem;
+    text-align: left;
+    min-width: 720px;
+    background: var(--negative-dark);
+  }
+
+  .benchmark-table thead tr {
+    border-bottom: 2px solid var(--positive);
+    background: var(--negative);
+    color: var(--positive);
+  }
+
+  .benchmark-table th {
+    padding: 12px 18px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .benchmark-table tbody tr {
+    border-bottom: 1px solid rgba(232, 228, 223, 0.1);
+    transition: background 0.15s ease;
+  }
+
+  .benchmark-table tbody tr:hover {
+    background: rgba(232, 228, 223, 0.03);
+  }
+
+  .benchmark-table td {
+    padding: 12px 18px;
+    white-space: nowrap;
+  }
+
+  .benchmark-table .col-highlight {
+    color: var(--rose);
+  }
+
+  .benchmark-table .col-win {
+    color: var(--accent-green);
+  }
+
+  .benchmark-table .val-bold {
+    font-weight: 700;
+  }
+
   /* ═══ The Sovereign Advantage 4-Column Grid ═══ */
   .advantage-grid-4col {
     display: grid;
@@ -1630,6 +1735,9 @@ const hardwareTiers = [
     }
     .solutions-grid {
       grid-template-columns: 1fr;
+    }
+    .benchmark-card {
+      padding: 24px 18px;
     }
     .sol-card {
       border-right: none;

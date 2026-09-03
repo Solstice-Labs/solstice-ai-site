@@ -64,6 +64,24 @@ a {
   text-decoration: none;
 }
 
+.skip-to-content {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  background: var(--negative-dark);
+  color: var(--positive-bold);
+  padding: 8px 16px;
+  border: var(--border);
+  z-index: 9999;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.skip-to-content:focus {
+  top: 12px;
+  left: 12px;
+}
+
 img, svg {
   display: block;
   max-width: 100%;
