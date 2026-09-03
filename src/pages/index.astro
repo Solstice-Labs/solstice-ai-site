@@ -12,21 +12,21 @@ const hardwareTiers = [
   {
     tier: 'Apple Silicon (M1/M2/M3/M4/M5)',
     runtime: 'oMLX Mixed Precision (oQ4e / oQ6e / oQ8e) + Metal MTP',
-    context: '1,048,576 Context (2^20) in 17GB–30GB RAM',
+    context: '1M Context in 17GB–30GB RAM',
     throughput: '180+ tok/s (MTP Speculative Heads)',
     target: 'Native Developer Workstations & Mac Studios',
   },
   {
     tier: 'NVIDIA Blackwell & Ada (RTX 4090 / 5090 / L40S)',
     runtime: 'Anvil Engine + NVFP4 Microscaling',
-    context: '1,048,576 Context in ~18 GB VRAM (TurboQuant)',
+    context: '1M Context in ~18 GB VRAM (TurboQuant)',
     throughput: '140+ tok/s (NVFP4 Tensor Cores)',
     target: 'On-Premise Engineering Desktops & Air-Gapped Labs',
   },
   {
     tier: 'Universal Enterprise (A100 / H100 / B200 / MI300X)',
     runtime: 'vLLM / SGLang OCP MXFP4 Engine',
-    context: '1,048,576 Batch Concurrency',
+    context: '1M Batch Concurrency',
     throughput: '450+ tok/s batch throughput',
     target: 'Private Sovereign Clusters & Cloud VPCs',
   },
@@ -130,7 +130,7 @@ const hardwareTiers = [
             <span class="pillar-idx">03</span>
             <span class="pillar-badge">RUNTIME</span>
           </div>
-          <h3>1,048,576 Token Context (2^20)</h3>
+          <h3>1M Token Context (1 Million)</h3>
           <p>Compress 1M token context on Qwen 3.8 into ~12–18 GB VRAM via Anvil and Google TurboQuant (FWHT + QJL residual quantization).</p>
           <div class="pillar-foot mono">
             <span class="tag-chip">1M in 14GB</span>
@@ -151,7 +151,7 @@ const hardwareTiers = [
           <h2>The Solstice Sovereign AI Suite</h2>
         </div>
         <p>
-          World-class open corpora paired with record-breaking 1,048,576 (2²⁰) context models. Zero compromise on speed, accuracy, or privacy.
+          World-class open corpora paired with record-breaking 1M (1 Million) context models. Zero compromise on speed, accuracy, or privacy.
         </p>
       </div>
 
@@ -181,10 +181,10 @@ const hardwareTiers = [
           </div>
           <h3>Qwen3.8-27B-TURBO Cold Fusion (1M Native)</h3>
           <p>
-            Breaches 735 ARC-C and 882 ARC-E with native 1,048,576 token (2²⁰) YaRN context, dual-stream Multi-Token Prediction (MTP), and mmproj-BF16 3D Video/Image multimodality.
+            Breaches 735 ARC-C and 882 ARC-E with native 1M (1 Million) token YaRN context, dual-stream Multi-Token Prediction (MTP), and mmproj-BF16 3D Video/Image multimodality.
           </p>
           <ul class="sol-list mono">
-            <li><span>Context:</span> <strong>1,048,576 Tokens (2²⁰) Native</strong></li>
+            <li><span>Context:</span> <strong>1M Tokens (1 Million) Native</strong></li>
             <li><span>Formats:</span> <strong>NVFP4 &bull; MXFP4 &bull; AWQ (W4A16) &bull; MLX &bull; GGUF</strong></li>
             <li><span>Intelligence:</span> <strong>735 ARC-C (+144 over Qwen 3.8 Base)</strong></li>
             <li><span>Hub Models:</span> <strong><a href="https://huggingface.co/Solstice-AI" target="_blank" rel="noopener noreferrer">Solstice-AI/Qwen3.8-27B-TURBO-1M ↗</a></strong></li>
@@ -199,7 +199,7 @@ const hardwareTiers = [
           </div>
           <h3>Anvil Runtime Engine</h3>
           <p>
-            Terminal-first, single-binary execution engine. Compresses 1,048,576 token KV cache into ~12–18 GB VRAM via Google TurboQuant (FWHT rotation + QJL residual quantization).
+            Terminal-first, single-binary execution engine. Compresses 1M token KV cache into ~12–18 GB VRAM via Google TurboQuant (FWHT rotation + QJL residual quantization).
           </p>
           <ul class="sol-list mono">
             <li><span>KV Cache:</span> <strong>8.6x Compression via TurboQuant</strong></li>
@@ -550,8 +550,8 @@ const hardwareTiers = [
         <!-- TurboQuant Panel -->
         <div class="viz-panel" id="panel-turboquant">
           <div class="viz-header">
-            <h3>Google TurboQuant 1,048,576 Token KV Cache Compression</h3>
-            <p class="mono">Memory footprint at 1M (2²⁰) context on NVIDIA RTX 4090 / Apple M4 Max</p>
+            <h3>Google TurboQuant 1M Token KV Cache Compression</h3>
+            <p class="mono">Memory footprint at 1M context on NVIDIA RTX 4090 / Apple M4 Max</p>
           </div>
           <div class="viz-rule"></div>
           <div class="chart-bars-list">
@@ -594,7 +594,7 @@ const hardwareTiers = [
           <div class="viz-rule"></div>
           <div class="chart-bars-list">
             <div class="chart-row">
-              <div class="chart-lbl mono highlight">Qwen3.8-27B-TURBO-AWQ-1M (1,048,576 Tokens)</div>
+              <div class="chart-lbl mono highlight">Qwen3.8-27B-TURBO-AWQ-1M (1M Tokens)</div>
               <div class="chart-track">
                 <div class="chart-fill solace-fill" style="width: 95%;">
                   <span class="chart-val mono">19.8 GB &bull; W4A16 Tensor Core GEMM (vLLM / SGLang) + MTP</span>
@@ -602,7 +602,7 @@ const hardwareTiers = [
               </div>
             </div>
             <div class="chart-row">
-              <div class="chart-lbl mono highlight">Qwen3.8-27B-TURBO-NVFP4-1M (1,048,576 Tokens)</div>
+              <div class="chart-lbl mono highlight">Qwen3.8-27B-TURBO-NVFP4-1M (1M Tokens)</div>
               <div class="chart-track">
                 <div class="chart-fill solace-fill" style="width: 95%;">
                   <span class="chart-val mono">18.8 GB &bull; Native Blackwell NVFP4 + MTP</span>
@@ -610,7 +610,7 @@ const hardwareTiers = [
               </div>
             </div>
             <div class="chart-row">
-              <div class="chart-lbl mono highlight">Qwen3.8-27B-TURBO-MXFP4-1M (1,048,576 Tokens)</div>
+              <div class="chart-lbl mono highlight">Qwen3.8-27B-TURBO-MXFP4-1M (1M Tokens)</div>
               <div class="chart-track">
                 <div class="chart-fill solace-fill" style="width: 90%;">
                   <span class="chart-val mono">18.0 GB &bull; Universal OCP MXFP4 + MTP</span>
@@ -618,7 +618,7 @@ const hardwareTiers = [
               </div>
             </div>
             <div class="chart-row">
-              <div class="chart-lbl mono highlight">Qwen3.8-27B-TURBO-mlx-oQ4e-1M (1,048,576 Tokens)</div>
+              <div class="chart-lbl mono highlight">Qwen3.8-27B-TURBO-mlx-oQ4e-1M (1M Tokens)</div>
               <div class="chart-track">
                 <div class="chart-fill solace-fill" style="width: 85%;">
                   <span class="chart-val mono">17.0 GB &bull; 2.20x Generation Speed on 16GB Macs</span>
@@ -626,7 +626,7 @@ const hardwareTiers = [
               </div>
             </div>
             <div class="chart-row">
-              <div class="chart-lbl mono">Qwen3.8-27B-TURBO-mlx-oQ8e-1M (1,048,576 Tokens)</div>
+              <div class="chart-lbl mono">Qwen3.8-27B-TURBO-mlx-oQ8e-1M (1M Tokens)</div>
               <div class="chart-track">
                 <div class="chart-fill teacher-fill" style="width: 75%;">
                   <span class="chart-val mono">30.0 GB &bull; 89.6% HumanEval Reference Grade</span>
