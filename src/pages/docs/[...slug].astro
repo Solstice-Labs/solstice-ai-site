@@ -256,18 +256,22 @@ const { Content } = await render(doc);
   }
 
   .doc-markdown-body :global(table) {
+    display: block;
     width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     border-collapse: collapse;
     margin: 28px 0;
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     border: var(--border);
   }
 
   .doc-markdown-body :global(th), .doc-markdown-body :global(td) {
-    padding: 12px 16px;
+    padding: 10px 14px;
     text-align: left;
     border-bottom: 1px solid var(--border-muted);
     border-right: 1px solid var(--border-muted);
+    white-space: nowrap;
   }
 
   .doc-markdown-body :global(th:last-child), .doc-markdown-body :global(td:last-child) {
