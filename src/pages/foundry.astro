@@ -1,0 +1,356 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Foundry & Mission Control — Solstice-AI"
+  description="SolsticeAI Foundry is the decentralized community crucible for open weights, non-Euclidean quaternion architectures, CERN Zenodo publications, and Project Anvil."
+>
+  <div class="container foundry-container">
+    <!-- Header Hero -->
+    <div class="foundry-hero">
+      <div class="eyebrow-pill mono">
+        <span class="beacon-dot"></span>
+        <span>FOUNDRY ACTIVE // 17 RESEARCHERS // CERN VERIFIED</span>
+      </div>
+      <h1 class="foundry-title">
+        The Open Collective Crucible.<br />
+        <span class="text-accent">SolsticeAI Foundry</span>
+      </h1>
+      <p class="foundry-lead">
+        A decentralized research haven for open-weight model releases, non-Euclidean mathematical foundations, and edge quantization. Zero corporate slop. Fully reproducible.
+      </p>
+
+      <div class="hero-actions">
+        <a href="https://discord.gg/euy9hpu8Fe" target="_blank" rel="noopener noreferrer" class="btn-primary">
+          <span>Join Discord Sanctuary</span>
+          <span class="arrow">↗</span>
+        </a>
+        <a href="https://huggingface.co/spaces/Solstice-AI/Mission-Control" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+          <span>Open Mission Control Space</span>
+          <span class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Live Interactive Space Frame -->
+    <div class="space-frame-wrapper">
+      <div class="frame-bar">
+        <div class="frame-dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <div class="frame-url mono">
+          <span>https://huggingface.co/spaces/Solstice-AI/Mission-Control</span>
+        </div>
+        <a href="https://solstice-ai-mission-control.static.hf.space" target="_blank" class="frame-popout mono">Fullscreen ↗</a>
+      </div>
+      <iframe
+        src="https://solstice-ai-mission-control.static.hf.space"
+        title="SolsticeAI Mission Control Space"
+        class="mission-control-iframe"
+        loading="lazy"
+      ></iframe>
+    </div>
+
+    <!-- Bento Grid of Key Havens -->
+    <div class="bento-foundry-grid">
+      <!-- Card 1: CERN Zenodo Community -->
+      <div class="bento-box">
+        <div class="bento-top mono">
+          <span>01 // SCIENTIFIC ARCHIVES</span>
+          <span class="tag-pill tag-cyan">CERN Verified</span>
+        </div>
+        <h3>CERN Zenodo Community</h3>
+        <p>
+          Official repository of Solstice-AI research papers, mathematical proofs, citable DOIs, and open dataset distributions indexed into OpenAIRE.
+        </p>
+        <a href="https://zenodo.org/communities/solstice-ai/" target="_blank" rel="noopener noreferrer" class="card-link mono">
+          <span>zenodo.org/communities/solstice-ai</span> ↗
+        </a>
+      </div>
+
+      <!-- Card 2: QuATernaryons Paper -->
+      <div class="bento-box">
+        <div class="bento-top mono">
+          <span>02 // MATHEMATICAL CORE</span>
+          <span class="tag-pill tag-amber">DOI: 10.5281/zenodo.23530592</span>
+        </div>
+        <h3>QuATernaryons Architecture v0.2.0</h3>
+        <p>
+          Non-Euclidean 4D Quaternion Rotor Attention on S³ for long-context LLMs. Eliminates rotational drift across 1M+ tokens.
+        </p>
+        <a href="https://doi.org/10.5281/zenodo.23530592" target="_blank" rel="noopener noreferrer" class="card-link mono">
+          <span>Read on CERN Zenodo</span> ↗
+        </a>
+      </div>
+
+      <!-- Card 3: Anvil Engine -->
+      <div class="bento-box">
+        <div class="bento-top mono">
+          <span>03 // INFERENCE ENGINE</span>
+          <span class="tag-pill tag-indigo">Rust / C++</span>
+        </div>
+        <h3>Project Anvil Engine</h3>
+        <p>
+          High-throughput local LLM inference engine optimized for Apple Silicon Metal, Blackwell NVFP4, and edge quantization.
+        </p>
+        <a href="https://github.com/Solstice-Labs/Anvil" target="_blank" rel="noopener noreferrer" class="card-link mono">
+          <span>github.com/Solstice-Labs/Anvil</span> ↗
+        </a>
+      </div>
+
+      <!-- Card 4: HF Foundry Org -->
+      <div class="bento-box">
+        <div class="bento-top mono">
+          <span>04 // COMMUNITY ORG</span>
+          <span class="tag-pill tag-green">17 Members</span>
+        </div>
+        <h3>SolsticeAI Foundry</h3>
+        <p>
+          Collaborative Hugging Face namespace for community fine-tunes, open dataset mirrors, quantizations, and discussions.
+        </p>
+        <a href="https://huggingface.co/SolsticeAIFoundry" target="_blank" rel="noopener noreferrer" class="card-link mono">
+          <span>huggingface.co/SolsticeAIFoundry</span> ↗
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .foundry-container {
+    padding-top: 4rem;
+    padding-bottom: 6rem;
+  }
+
+  .foundry-hero {
+    max-width: 860px;
+    margin-bottom: 3.5rem;
+  }
+
+  .eyebrow-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.35rem 0.85rem;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    border-radius: 9999px;
+    font-size: 0.72rem;
+    color: #34d399;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+
+  .beacon-dot {
+    width: 6px;
+    height: 6px;
+    background: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #10b981;
+  }
+
+  .foundry-title {
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: #ffffff;
+    margin-bottom: 1.25rem;
+  }
+
+  .text-accent {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24 60%, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .foundry-lead {
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    color: #9ca3af;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #f59e0b;
+    color: #000;
+    font-weight: 700;
+    font-size: 0.88rem;
+    padding: 0.75rem 1.4rem;
+    border-radius: 9999px;
+    text-decoration: none;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: #fbbf24;
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 0.75rem 1.4rem;
+    border-radius: 9999px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  /* Embedded Frame */
+  .space-frame-wrapper {
+    background: #06080d;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 4rem;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+  }
+
+  .frame-bar {
+    background: #0d111a;
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .frame-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .dot.red { background: #ef4444; }
+  .dot.yellow { background: #f59e0b; }
+  .dot.green { background: #10b981; }
+
+  .frame-url {
+    font-size: 0.72rem;
+    color: #6b7280;
+  }
+
+  .frame-popout {
+    font-size: 0.75rem;
+    color: #f59e0b;
+    text-decoration: none;
+  }
+
+  .mission-control-iframe {
+    width: 100%;
+    height: 720px;
+    border: none;
+    display: block;
+    background: #040508;
+  }
+
+  /* Bento Grid */
+  .bento-foundry-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .bento-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 18px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.25s;
+  }
+
+  .bento-box:hover {
+    border-color: rgba(245, 158, 11, 0.3);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .bento-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.68rem;
+    color: #6b7280;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .tag-pill {
+    padding: 0.2rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.65rem;
+    font-weight: 600;
+  }
+
+  .tag-cyan { background: rgba(6, 182, 212, 0.12); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.3); }
+  .tag-amber { background: rgba(245, 158, 11, 0.12); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+  .tag-indigo { background: rgba(99, 102, 241, 0.12); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.3); }
+  .tag-green { background: rgba(16, 185, 129, 0.12); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.25); }
+
+  .bento-box h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+
+  .bento-box p {
+    font-size: 0.9rem;
+    color: #9ca3af;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-link {
+    font-size: 0.8rem;
+    color: #f59e0b;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: gap 0.2s;
+  }
+
+  .card-link:hover {
+    gap: 0.55rem;
+  }
+
+  @media (max-width: 768px) {
+    .bento-foundry-grid {
+      grid-template-columns: 1fr;
+    }
+    .mission-control-iframe {
+      height: 580px;
+    }
+  }
+</style>
